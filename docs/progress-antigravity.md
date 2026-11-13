@@ -19,4 +19,12 @@
   - `home-screen.png` (Landing page with village artwork)
 - Verified offline execution with zero network dependencies.
 
-The evidence above was collected on Antigravity's own implementation at `ec3bbbf1ac04fa53e469bd94d57a3542339a8f5a`. The original screenshots and scripts are available in that commit. See [integrated QA](qa.md) for the current application's evidence.
+## Milestone A4: Rapid Pick Visual Challenge Module & Verification (Expansion)
+- Built `src/features/game/challenges/rapid/` containing:
+  - `rapid-scenarios.js`: Two new disaster fixtures (`rapid-home-fire` and `rapid-flood-road`) with schema-compliant choices, explanations, source URLs, and `format: "rapid"`.
+  - `rapid-renderer.js`: Reusable `mountChallenge` lifecycle implementing staggered arcade card entry (280ms stagger, ~560ms reveal), accessible button targets, keyboard shortcuts (`1/2/3` and `A/B/C`), touch optimization, `onReady` host clock trigger, and clean `destroy()` teardown.
+  - `rapid-style.js` & `rapid.css`: Arcade depth and 3D card styling with instant, motion-free layout overrides for Calm Mode and `prefers-reduced-motion`.
+  - `index.js`: Clean export of `mountChallenge` and `rapidScenarios`.
+  - `harness.html`: Standalone interactive test harness for local verification.
+- Verified contract with `scripts/test-rapid.js` and verified interactive browser lifecycle with `scripts/test-rapid-browser.js` via headless Chrome.
+- Updated `docs/scenario-sources.md` with primary source citations for both Rapid Pick scenarios.
