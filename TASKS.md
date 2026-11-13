@@ -1,0 +1,14 @@
+# Task board
+
+| Task | Owner | Done when |
+| --- | --- | --- |
+| C1. Establish baseline and working branches | Codex | Existing stack, remote and SHA verified. Shared docs committed on a baseline both agents can use. |
+| C2. Playable vertical slice | Codex | Briefing, one round, answer or timeout, explanation, result and working Calm Mode. |
+| A1. Scenario content | Antigravity | Earthquake, flood and fire fixtures follow the contract and include source notes. |
+| C3. Complete game and homepage | Codex | All three rounds, results, replay, welcome tour, responsive design and hazard transitions work. |
+| A2. README and QA preparation | Antigravity | Run and judge steps drafted, QA checklist ready, documentation card outline ready if assigned. |
+| C4. Integrate | Codex | Scenario branch and application branch combined on a reviewable branch. Share integrated SHA and preview steps. |
+| A3. Verify and document | Antigravity | Independent browser checks, two actual screenshots, assigned card, AI-use note, recording if required. |
+| C5. Final integration check | Codex | Fix agreed bugs, include evidence, verify the final SHA and return a preview or self-contained bundle. |
+
+Status at handoff: all implementation tasks pending. Codex maintains this table. Agents append checkpoint details to their own progress files.
