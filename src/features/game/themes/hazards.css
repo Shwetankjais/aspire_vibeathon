@@ -3,6 +3,7 @@
 .fire { --tint: #f6e0df; --hazard-ink: #842e3b; --overlay: #65192c8c; }
 .scene { position: relative; isolation: isolate; min-height: 480px; overflow: hidden; border-radius: 22px; background: #31203d; color: white; }
 .scene-image, .hazard-effect { position: absolute; inset: 0; z-index: -1; }
+.scene-image { background: #31203d url('../../../assets/sundarpur.jpg') center / cover no-repeat; }
 .hazard-effect { background: linear-gradient(180deg, var(--overlay, #3d285d20), #180e25a0 88%); animation: scene-in .4s ease-out both; }
 .scene-label { position: absolute; inset: auto 18px 18px; display: flex; align-items: center; gap: 9px; padding: 10px 14px; border-radius: 12px; width: fit-content; background: #211729eb; }
 .scene-label strong, .scene-label small { display: block; }
@@ -21,7 +22,7 @@
 @keyframes drift { to { transform: translateY(24px); } }
 @keyframes warmth { from { opacity: .56; } to { opacity: 1; } }
 @media (max-width: 700px) {
-  .scene { min-height: 185px; aspect-ratio: 2.05; border-radius: 15px; }
+  .scene { width: 100%; min-width: 0; min-height: 160px; aspect-ratio: 2.05; border-radius: 15px; }
   .scene-label { inset: auto 10px 10px; padding: 7px 10px; }
 }
 

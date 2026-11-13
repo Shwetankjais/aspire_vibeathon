@@ -8,3 +8,9 @@
 - Codex owns integration. Two working copies and two progress logs keep simultaneous edits isolated.
 
 Record any agreed changes here with the date, reason, and affected contract.
+
+## 2026-11-13 integration
+
+- The verified baseline contained planning files. Use Vite with native modules and bundle the fonts and illustrations with the game.
+- Preserve the scenario module interface. Integrate the peer fixtures and validator from the Desktop working copy. Use shorter explanations in both modes and specify a clear exit in both fire prompts.
+- Place the question above the illustration on narrow screens so players can reach the choices while the timer runs.

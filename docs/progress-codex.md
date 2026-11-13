@@ -14,3 +14,9 @@ Append the task, branch, commit SHA, verified behavior, blockers, and Antigravit
 - Integrated the scenario module and validator from Antigravity's Desktop working copy. Removed the temporary fixture.
 - Kept the scenario export and shape. Shortened prompts, choices, and explanations, varied safe answer positions, and aligned the home fire scenario with the brief's clear-exit premise. The local Desktop working copy remained available to Antigravity.
 - The production build and all three fixture validations passed. Browser verification covered keyboard play, wrong-answer feedback, enabling Calm Mode in feedback, all three rounds, and missed-round practice preserving the original score.
+
+## Production check and handoff · 2026-11-13
+
+- The three-round integration checkpoint was pushed as `64fbe9ed17a43ef84cc8c81e64ed79749abbb875`.
+- Verified real timeout, practice and replay, 3 / 3 debrief, mobile layout after correcting overflow, and a clean browser console. Saved the Calm Mode and debrief screenshots.
+- Reconciled the judge runbook and submission checklist to the integrated branch. The assigned documentation card and independent QA of this branch remain pending.

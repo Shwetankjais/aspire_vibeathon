@@ -11,4 +11,4 @@
 | A3. Verify and document | Antigravity | Independent browser checks, two actual screenshots, assigned card, AI-use note, recording if required. |
 | C5. Final integration check | Codex | Fix agreed bugs, include evidence, verify the final SHA and return a preview or self-contained bundle. |
 
-Status at handoff: all implementation tasks pending. Codex maintains this table. Agents append checkpoint details to their own progress files.
+Status on 2026-11-13. C1–C4 are implemented. A1 fixtures and validator are integrated. A2 run steps and judge checklist have been reconciled to the integrated app. C5 local verification and screenshots are complete. A3 independent verification of this app and the assigned documentation card are pending.
