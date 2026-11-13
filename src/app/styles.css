@@ -110,15 +110,6 @@ h1:focus, h2:focus, [data-feedback]:focus { outline: none; }
 .takeaways li { display: flex; gap: 11px; border-top: 1px solid var(--line); padding: 9px 0; }
 .takeaways p, .takeaways a, .location-status { font-size: .83rem; color: var(--muted); }
 .takeaways a { text-underline-offset: 3px; }
-.tour { width: min(calc(100% - 32px), 480px); max-height: calc(100% - 32px); padding: 25px; color: var(--ink); background: var(--paper); border: 1.5px solid var(--ink); border-radius: 19px; box-shadow: 6px 6px 0 var(--ink); }
-.tour::backdrop { background: #2115269c; }
-.tour-top, .tour-actions { display: flex; align-items: center; gap: 14px; }
-.tour-top { justify-content: space-between; }
-.tour-actions { justify-content: flex-end; margin-top: 21px; }
-.tour h2 { font: 850 2.32rem/1 var(--display); letter-spacing: -.06em; margin: 8px 0 12px; }
-.tour > p { color: var(--muted); }
-.tour-example { margin-top: 15px; padding: 14px; background: #f5eee5; border: 1px dashed #c1b4a7; border-radius: 11px; }
-.tour-example .feedback { margin: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
 @media (max-width: 960px) {
   .wrap { width: calc(100% - 56px); }
