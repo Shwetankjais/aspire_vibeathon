@@ -4,11 +4,11 @@
 
 **Play the deployed game:** [Disaster Dash](https://shwetankjais.github.io/aspire_vibeathon/)
 
-This submission packages the deployed application from main commit `96f14c98675e44c4511a31b5d40a522641c3ae61`. Sundarpur and its scenarios are fictional. The game uses bundled content and local scoring.
+This submission packages the deployed application from main commit `7b40030acdd73c339143ceadd557f8a66ec170d7`. The original Sundarpur illustration is back on the briefing and throughout Classic, including the Eldrin path. Sundarpur and its scenarios are fictional. The game uses bundled content and local scoring.
 
 ### Classic judge path · about 60 seconds
 
-1. Open the live link and skip or finish the welcome tour. Select **Play Disaster Dash**, then **Start round**.
+1. Open the live link and skip or finish the welcome tour. Select **Play Disaster Dash** to see the restored illustrated briefing, then choose **Start round**. The same artwork appears alongside the earthquake question.
 2. Observe the 20-second countdown. Choose **Drop, cover, and hold on under the desk**. Read the explanation.
 3. Enable **Calm Mode** in feedback and select **Next round**. Confirm the flood round has a short prompt and no countdown.
 4. Choose **Turn around and head to higher ground**. Advance and choose **Leave by the clear exit and go to the outside meeting place**.
@@ -16,7 +16,7 @@ This submission packages the deployed application from main commit `96f14c98675e
 
 ### Guided Classic judge path · The Oracle’s Journey
 
-1. In the briefing, turn on **Calm Mode** and choose **Begin with Eldrin**. The school round opens with Eldrin’s journal and no countdown.
+1. In the briefing, turn on **Calm Mode** and choose **Begin with Eldrin**. The school round opens with the restored village illustration, Eldrin’s journal, and no countdown.
 2. Use the **Eldrin guide** switch to hide and restore the journal. Turn Calm Mode off to start the timer, then turn it back on. The same question remains and Eldrin returns.
 3. Choose **Drop, cover, and hold on under the desk**. Read the safety explanation and Eldrin’s response. For the missed-answer check, choose **Run for the stairs and head outside** instead. Switching Calm Mode off and back on during feedback restores Eldrin’s response and preserves the submitted answer.
 4. In the flood round, choose **Turn around and head to higher ground**. In the fire round, choose **Leave by the clear exit and go to the outside meeting place**.
@@ -40,15 +40,17 @@ This submission packages the deployed application from main commit `96f14c98675e
 
 ### Fresh screenshots from the live build
 
-- [Briefing with Begin with Eldrin](screenshots/eldrin-briefing.jpg)
-- [Guided Classic question](screenshots/eldrin-classic-round.jpg)
-- [Guided Classic result and closing line](screenshots/eldrin-classic-result.jpg)
-- [Plain Calm Mode question](screenshots/eldrin-plain-calm.jpg)
-- [Interactive visual scene](screenshots/eldrin-visual-scene.jpg)
-- [Rapid Pick](screenshots/eldrin-rapid-pick.jpg)
-- [Visual Challenges 2 / 2 result](screenshots/eldrin-visual-result.jpg)
+- [Briefing with the restored Sundarpur illustration](screenshots/restored-sundarpur/briefing.jpg)
+- [Timed Classic earthquake round](screenshots/restored-sundarpur/classic-round.jpg)
+- [Briefing with Begin with Eldrin](screenshots/restored-sundarpur/eldrin-briefing.jpg)
+- [Guided Classic question with the restored illustration](screenshots/restored-sundarpur/eldrin-round.jpg)
+- [Guided Classic result and closing line](screenshots/restored-sundarpur/eldrin-result.jpg)
+- [Plain Calm Mode question](screenshots/restored-sundarpur/plain-calm.jpg)
+- [Interactive visual scene](screenshots/restored-sundarpur/visual-scene.jpg)
+- [Rapid Pick](screenshots/restored-sundarpur/rapid-pick.jpg)
+- [Visual Challenges 2 / 2 result](screenshots/restored-sundarpur/visual-result.jpg)
 
-The release passed the scenario and dialogue validators, engine tests, and production build. Live browser checks covered guided Classic, plain Calm Mode, and Visual Challenges. The ZIP’s production files match those served by GitHub Pages.
+`npm test` and `npm run build` passed for this release. On the public site, timed Classic, plain Calm Mode, and Eldrin each completed all three rounds with feedback, a 3 / 3 result, and replay. The briefing and Classic rounds loaded the original Sundarpur artwork. Onboarding and a complete Visual Challenges run, including Rapid Pick, also passed. The ZIP’s production files match the files served by GitHub Pages.
 
 ## DOC-03 · Five-test checklist
 
