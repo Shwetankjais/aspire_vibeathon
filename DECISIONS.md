@@ -17,11 +17,3 @@ Record any agreed changes here with the date, reason, and affected contract.
 
 - Draw one scene and one Rapid Pick prompt for each new visual run, excluding the previous pair. Practice reuses the exact missed scenarios.
 - Load each renderer when its question opens. The text choices become the fallback if loading fails or times out. Calm Mode makes text choices immediately usable.
-
-## Living Village (review branch)
-
-- Add one lazy, locally bundled Three.js renderer for Classic and shared briefing only. Visual Challenges and Rapid Pick are unchanged.
-- Scene time is independent of the assessment clock. Question-to-feedback retains scene progression so environmental escalation occurs once per round. Scene replay is explicit.
-- Calm Mode and reduced motion use deterministic still steps; no automatic gentle preview. Question poses never demonstrate escape. Earthquake emergence is gated to feedback after a quiet beat.
-- WebGL failure uses locally captured still steps over the existing poster fallback. No network service is required.
-- Do not merge or deploy without the user's approval. Latest verified release remains 96f14c9; main baseline for this work is 9b48a5c.

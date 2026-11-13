@@ -12,12 +12,3 @@
 | C5. Final integration check | Codex | Fix agreed bugs, include evidence, verify the final SHA and return a preview or self-contained bundle. |
 
 Status on 2026-11-13. C1–C4 are implemented. A1 fixtures and validator are integrated. A2 run steps and judge checklist have been reconciled to the integrated app. C5 local verification and screenshots are complete. A3 independent verification of this app and the assigned documentation card are pending.
-
-## Living Village
-
-- [x] Isolated worktree and latest main baseline verified.
-- [x] Shared renderer, geometry, character helpers and earthquake slice.
-- [x] Flood/fire integration and safe character path checks.
-- [x] Still controls, pause/replay, reduced motion and local no-WebGL fallbacks.
-- [x] Record integrated production browser QA; open review PR after commit.
-- [ ] Deployment — requires user approval; excluded from this task.
