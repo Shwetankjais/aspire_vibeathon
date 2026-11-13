@@ -20,3 +20,8 @@ Append the task, branch, commit SHA, verified behavior, blockers, and Antigravit
 - The three-round integration checkpoint was pushed as `64fbe9ed17a43ef84cc8c81e64ed79749abbb875`.
 - Verified real timeout, practice and replay, 3 / 3 debrief, mobile layout after correcting overflow, and a clean browser console. Saved the Calm Mode and debrief screenshots.
 - Reconciled the judge runbook and submission checklist to the integrated branch. The assigned documentation card and independent QA of this branch remain pending.
+
+## Peer branch reconciliation · 2026-11-13
+
+- Antigravity published `ec3bbbf1ac04fa53e469bd94d57a3542339a8f5a`, which also became the head of `main`. That commit includes a parallel application, scenario content, documentation, and evidence.
+- Reconciled the histories on `codex/disaster-dash-app` with the verified Codex application as the integrated implementation. Preserved the peer progress record, its scenario contribution, and the engine test coverage adapted to this implementation. Peer screenshots and browser verification cover the separate Antigravity app.
