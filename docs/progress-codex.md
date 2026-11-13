@@ -1,20 +1,27 @@
-# Progress Log - Application & Integration
+# Codex checkpoints
 
-## Milestone C1: Baseline & Project Architecture
-- Initialized Vite static application setup with vanilla ES Modules.
-- Verified GitHub remote, authentication, and branch status.
+Append the task, branch, commit SHA, verified behavior, blockers, and Antigravity's next action after each meaningful checkpoint.
 
-## Milestone C2: Playable Vertical Slice & Game Engine
-- Built `src/features/game/engine/gameStore.js` managing game lifecycle, single scoring, deadline countdown, and Calm Mode state.
-- Automated testing in `scripts/test-engine.js` verifying timing, score integrity, timeout handling, and Calm Mode reversibility.
+## Baseline and playable round · 2026-11-13
 
-## Milestone C3: Screens, Onboarding Tour & OWASP NIE Styling
-- Implemented `HomeScreen` with bold cream/ink/yellow OWASP NIE aesthetic.
-- Implemented `TourModal` with 3-step spotlight onboarding, keyboard shortcuts (`Esc`), and session persistence.
-- Built `BriefingScreen`, `QuestionScreen`, `FeedbackScreen`, and `ResultsScreen`.
-- Designed custom SVG vectors in `src/assets/illustrations.js` for Sundarpur village, Disaster Devil, school earthquake, river flood, home fire, and village celebration.
+- Verified the planning-only baseline at `e4552a7f8d72714f822596cef09bc117657f3857`. Created and pushed `codex/disaster-dash-app`.
+- This checkpoint adds the static Vite app, home and tour, and a complete earthquake round using a temporary fixture. The production content contract is unchanged.
+- Vite build passed. The browser accepted a keyboard answer and showed the single-round debrief. The engine check advanced the clock past the original deadline in Calm Mode and forced a stale callback. The question stayed open and scoring accepted only the first answer.
+- Next peer action is to share the scenario branch and independently check the switch from a timed question to Calm Mode.
 
-## Milestone C4 & C5: Integration & Final Verification
-- Integrated scenario content and engine into cohesive hash-routed application (`#/` and `#/play`).
-- Verified build: `npm run build` generates clean static bundle in `dist/`.
-- Verified preview: `npm run preview` runs on port 4173 with zero external network requests.
+## Three-round integration · 2026-11-13
+
+- Integrated the scenario module and validator from Antigravity's Desktop working copy. Removed the temporary fixture.
+- Kept the scenario export and shape. Shortened prompts, choices, and explanations, varied safe answer positions, and aligned the home fire scenario with the brief's clear-exit premise. The local Desktop working copy remained available to Antigravity.
+- The production build and all three fixture validations passed. Browser verification covered keyboard play, wrong-answer feedback, enabling Calm Mode in feedback, all three rounds, and missed-round practice preserving the original score.
+
+## Production check and handoff · 2026-11-13
+
+- The three-round integration checkpoint was pushed as `64fbe9ed17a43ef84cc8c81e64ed79749abbb875`.
+- Verified real timeout, practice and replay, 3 / 3 debrief, mobile layout after correcting overflow, and a clean browser console. Saved the Calm Mode and debrief screenshots.
+- Reconciled the judge runbook and submission checklist to the integrated branch. The assigned documentation card and independent QA of this branch remain pending.
+
+## Peer branch reconciliation · 2026-11-13
+
+- Antigravity published `ec3bbbf1ac04fa53e469bd94d57a3542339a8f5a`, which also became the head of `main`. That commit includes a parallel application, scenario content, documentation, and evidence.
+- Reconciled the histories on `codex/disaster-dash-app` with the verified Codex application as the integrated implementation. Preserved the peer progress record, its scenario contribution, and the engine test coverage adapted to this implementation. Peer screenshots and browser verification cover the separate Antigravity app.

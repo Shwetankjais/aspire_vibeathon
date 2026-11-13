@@ -18,3 +18,5 @@
   - `calm-mode.png` (Calm mode untimed state)
   - `home-screen.png` (Landing page with village artwork)
 - Verified offline execution with zero network dependencies.
+
+The evidence above was collected on Antigravity's own implementation at `ec3bbbf1ac04fa53e469bd94d57a3542339a8f5a`. The original screenshots and scripts are available in that commit. See [integrated QA](qa.md) for the current application's evidence.

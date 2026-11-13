@@ -1,17 +1,18 @@
 {
+  "devDependencies": {
+    "vite": "7.3.8"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "5.3.0",
+    "@fontsource-variable/dm-sans": "5.3.0"
+  },
   "name": "disaster-dash",
-  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Disaster Dash - Interactive Village Disaster Response Game",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node scripts/test-scenarios.js && node scripts/test-engine.js"
-  },
-  "devDependencies": {
-    "puppeteer-core": "^25.17.0",
-    "vite": "^6.2.0"
+    "test": "node scripts/test-scenarios.js && node --test scripts/test-engine.js"
   }
 }

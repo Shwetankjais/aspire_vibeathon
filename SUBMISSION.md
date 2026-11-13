@@ -1,24 +1,9 @@
 # VibeSprint submission checklist
 
-Use this during final review. Copy the required information into the project README and the selected documentation card. Mark an item complete only after the app or artifact exists.
+- [x] **Runnable app.** The source checkout and local production preview use the bundled scenarios. [Run steps](README.md#run-locally)
+- [x] **README.** Includes the problem statement, features, judge demo, limitations, and AI-use note. [README](README.md)
+- [ ] **Assigned documentation card.** The event card number is pending. Drafts for [DOC-02 and DOC-03](docs/qa.md) are available.
+- [x] **Two screenshots.** [Calm Mode in round two](docs/screenshots/calm-round.jpg) and [3 / 3 debrief](docs/screenshots/debrief.jpg).
+- [x] **AI-use note.** [Integration decisions and generated artwork](README.md#scope-and-ai-use)
 
-- [x] **Runnable app:** Self-contained project folder and static build verified. Tested run commands (`npm install`, `npm run dev`, `npm run build`, `npm run preview`). Zero secrets, no `.env`, 100% offline sample data.
-- [x] **README.md:** Project name, one-sentence problem statement, 5 working features (including Calm Mode twist), exact preview/run steps, three-step judge demo using sample data, known limitations, and links to the two screenshots.
-- [x] **Selected documentation card:** Completed **DOC-02 (Judge Runbook)** and **DOC-03 (Five-Test Checklist)** under `docs/qa.md`.
-- [x] **Two screenshots:** 
-  - Main Flow Gameplay: `docs/screenshots/flow-gameplay.png`
-  - Result & Debrief: `docs/screenshots/results-debrief.png`
-  - *(Bonus: Calm Mode active `docs/screenshots/calm-mode.png`, Home page `docs/screenshots/home-screen.png`)*
-- [x] **Recording:** Captured comprehensive high-fidelity screenshots of all states; automated Puppeteer script `scripts/capture-screenshots.js` re-creates and captures full browser flow.
-- [x] **AI-use note:** Included in `README.md` identifying tools (Antigravity & Gemini 3.8) and specific architectural change (full timer reset when reverting Calm Mode to Normal mid-question).
-
-## Documentation card guide
-
-| Card | Status & Location |
-| --- | --- |
-| DOC-01 · README & Quickstart | **Complete:** Documented in `README.md`. |
-| DOC-02 · Judge Runbook | **Complete:** Documented in `docs/qa.md` (60-second numbered guide). |
-| DOC-03 · Five-Test Checklist | **Complete:** Documented in `docs/qa.md` (Invalid, Happy Path, Twist, Refresh, Boundary). |
-| DOC-04 · User Quickstart | **Complete:** Documented in `README.md` & interactive Tour. |
-| DOC-05 · Data & Privacy Note | **Complete:** 100% client-side memory, zero remote tracking or cookies. |
-| DOC-06 · Handoff & Limitations | **Complete:** Documented in `docs/qa.md` and `README.md`. |
+The local production preview is the submission's runnable copy. Independent QA evidence can be added when the integrated branch has been reviewed.

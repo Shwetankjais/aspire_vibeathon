@@ -18,23 +18,23 @@ export const scenarios = [
     hazard: "earthquake",
     location: "Village school",
     title: "The classroom shakes",
-    prompt: "A sudden rumble turns into violent ground shaking in your second-floor classroom. Heavy ceiling fixtures swing and desks rattle. What do you do?",
-    calmPrompt: "The classroom is shaking. A sturdy wooden desk is right next to you.",
+    prompt: "The second-floor classroom starts shaking. The lights swing, and a sturdy desk is within reach. What do you do?",
+    calmPrompt: "The room is shaking. A sturdy desk is nearby.",
     choices: [
       {
-        id: "drop-cover-hold",
-        label: "Drop to your hands and knees, take cover under the sturdy desk, and hold on firmly.",
-        explanation: "Dropping down shields your vital organs and prevents you from being thrown off balance, while the desk protects against falling lights, plaster, and ceiling debris."
+        id: "run-stairwell",
+        label: "Run for the stairs and head outside.",
+        explanation: "Shaking makes it easy to fall, and debris can fall along the way."
       },
       {
-        id: "run-stairwell",
-        label: "Rush out immediately toward the hallway and stairwell to get outside.",
-        explanation: "Running during severe ground shaking is a leading cause of fractures and head trauma from collapsing architectural fixtures, falling glass, and tripping on stairs."
+        id: "drop-cover-hold",
+        label: "Drop, cover, and hold on under the desk.",
+        explanation: "Getting low helps you keep your balance. The desk provides cover from falling objects."
       },
       {
         id: "stand-doorway",
-        label: "Stand upright braced inside the classroom doorframe until the shaking stops.",
-        explanation: "Modern building doorways are not structurally reinforced compared to surrounding walls and leave your head and body completely exposed to flying debris."
+        label: "Stand in the classroom doorway.",
+        explanation: "The doorway leaves you exposed to falling objects."
       }
     ],
     correctChoiceId: "drop-cover-hold",
@@ -46,55 +46,55 @@ export const scenarios = [
     hazard: "flood",
     location: "River crossing road",
     title: "Rising brown water on the road",
-    prompt: "Monsoon runoff has swollen Sundarpur creek across the main low-lying village road. Brown water is moving swiftly over the asphalt at an unknown depth. What do you do?",
-    calmPrompt: "Swift brown water is flowing across the road ahead. You can see higher ground on the hillside behind you.",
+    prompt: "Fast-moving floodwater covers the road ahead. You can return to higher ground by the route you came from. What do you do?",
+    calmPrompt: "Floodwater covers the road. The way back to higher ground is clear.",
     choices: [
       {
-        id: "turn-around-high-ground",
-        label: "Turn around immediately and head to higher ground along the elevated village ridge.",
-        explanation: "Moving away from floodwaters and staying on elevated roads is the only reliable way to prevent being swept into deep ditches or culverts."
-      },
-      {
         id: "wade-quickly",
-        label: "Step into the current carefully with a stick to test the depth and wade across.",
-        explanation: "Just six inches of fast-moving water can knock a full-grown adult off their feet, and submerged sinkholes or downed lines are invisible beneath muddy water."
+        label: "Test the depth with a stick and wade across.",
+        explanation: "Moving water can knock you down and hide damage to the road."
       },
       {
         id: "drive-scooter",
-        label: "Accelerate your scooter quickly across the bridge before the water level rises further.",
-        explanation: "Moving water can stall engines instantly and buoyant force will sweep vehicles and two-wheelers off roadways in under twelve inches of water."
+        label: "Ride a scooter quickly through the water.",
+        explanation: "The current can sweep vehicles off the road."
+      },
+      {
+        id: "turn-around-high-ground",
+        label: "Turn around and head to higher ground.",
+        explanation: "Turning back keeps you out of the current."
       }
     ],
     correctChoiceId: "turn-around-high-ground",
-    takeaway: "Turn Around Don't Drown! Never walk, wade, or drive through moving water of unknown depth.",
-    sourceUrl: "https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf"
+    takeaway: "When floodwater covers a road, turn back and head to higher ground.",
+    sourceUrl: "https://www.weather.gov/safety/flood-turn-around-dont-drown"
   },
   {
     id: "home-fire",
     hazard: "fire",
     location: "Village home",
-    title: "Smoke in the bedroom corridor",
-    prompt: "The smoke alarm blares at night. Dark, acrid smoke is seeping under your closed bedroom door. You need to escape the house safely. What do you do?",
-    calmPrompt: "The smoke alarm is sounding and grey haze is rising. You need to reach the front door exit.",
+    title: "The smoke alarm sounds",
+    prompt: "Smoke is coming from a room across the house. The path to the outside door beside you is clear. What do you do?",
+    calmPrompt: "The alarm is sounding. The way outside is clear.",
     choices: [
       {
-        id: "crawl-low-feel-door",
-        label: "Crawl low beneath the smoke layer, test the door handle with the back of your hand, and exit through the primary clear pathway.",
-        explanation: "Cooler, breathable air stays within 12 to 24 inches of the floor. Checking the door with the back of your hand prevents palm burns and warns if fire is on the other side."
+        id: "use-clear-exit",
+        label: "Leave by the clear exit and go to the outside meeting place.",
+        explanation: "Leaving immediately gets you out before smoke or fire can block the exit."
       },
       {
         id: "grab-valuables-run",
-        label: "Stand upright, grab your phone, laptop, and school bag, and run swiftly through the hall.",
-        explanation: "Inhaling superheated toxic gases can cause unconsciousness within seconds; searching for belongings wastes the few crucial minutes needed to escape safely."
+        label: "Gather your belongings before leaving.",
+        explanation: "Gathering belongings delays your escape."
       },
       {
         id: "hide-in-closet",
-        label: "Retreat into the bedroom closet, close the door, and cover yourself in thick blankets.",
-        explanation: "Hiding in enclosed spaces traps you inside the structure, makes it difficult for firefighters to locate you, and smoke will still penetrate closed closet doors."
+        label: "Hide in a closet and wait.",
+        explanation: "Hiding keeps you inside while smoke can spread."
       }
     ],
-    correctChoiceId: "crawl-low-feel-door",
-    takeaway: "In a home fire: Get low, check doors for heat before opening, and get out fast without stopping for belongings.",
+    correctChoiceId: "use-clear-exit",
+    takeaway: "When the way out is clear, leave immediately and stay outside.",
     sourceUrl: "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/home-fire-escape-plans/"
   }
 ];

@@ -1,0 +1,32 @@
+.earthquake { --tint: #f1dfed; --hazard-ink: #623459; --overlay: #4c214f99; }
+.flood { --tint: #d7efee; --hazard-ink: #1d5e62; --overlay: #005456a8; }
+.fire { --tint: #f6e0df; --hazard-ink: #842e3b; --overlay: #65192c8c; }
+.scene { position: relative; isolation: isolate; min-height: 480px; overflow: hidden; border-radius: 22px; background: #31203d; color: white; }
+.scene-image, .hazard-effect { position: absolute; inset: 0; z-index: -1; }
+.scene-image { background: #31203d url('../../../assets/sundarpur.jpg') center / cover no-repeat; }
+.hazard-effect { background: linear-gradient(180deg, var(--overlay, #3d285d20), #180e25a0 88%); animation: scene-in .4s ease-out both; }
+.scene-label { position: absolute; inset: auto 18px 18px; display: flex; align-items: center; gap: 9px; padding: 10px 14px; border-radius: 12px; width: fit-content; background: #211729eb; }
+.scene-label strong, .scene-label small { display: block; }
+.scene-label strong { font: 800 1.2rem/1.1 var(--display); }
+.scene-label small { color: #f1e6f1; margin-top: 3px; }
+.earthquake .hazard-effect::after, .flood .hazard-effect::after, .fire .hazard-effect::after { content: ''; position: absolute; inset: 0; }
+.earthquake .hazard-effect::after { background: repeating-conic-gradient(from 10deg at 56% 87%, transparent 0 15deg, #ffc86a39 16deg 16.5deg, transparent 18deg 36deg); animation: tremor 2.8s ease-in-out infinite; }
+.flood .hazard-effect::after { background: repeating-linear-gradient(171deg, transparent 0 12px, #7af6ec43 13px 15px, transparent 17px 24px); mask-image: linear-gradient(transparent 43%, black); animation: drift 4s linear infinite; }
+.fire .hazard-effect::after { background: radial-gradient(ellipse at 15% 89%, #ff954975, transparent 40%), radial-gradient(ellipse at 89% 100%, #ff60449c, transparent 48%); animation: warmth 3.2s ease-in-out infinite alternate; }
+.scene.quiet .hazard-effect { background: linear-gradient(transparent 46%, #21182d6e); animation: none; }
+.scene.quiet .hazard-effect::after { display: none; }
+.scene.quiet .scene-image { filter: saturate(.54); }
+.scene.restored .hazard-effect { background: radial-gradient(ellipse at 53% 35%, #ffe17a66, transparent 65%), linear-gradient(transparent 55%, #241826a0); }
+@keyframes scene-in { from { opacity: .4; } to { opacity: 1; } }
+@keyframes tremor { 0%, 48%, 54%, 100% { transform: none; } 51% { transform: translateX(3px); } }
+@keyframes drift { to { transform: translateY(24px); } }
+@keyframes warmth { from { opacity: .56; } to { opacity: 1; } }
+@media (max-width: 700px) {
+  .scene { width: 100%; min-width: 0; min-height: 160px; aspect-ratio: 2.05; border-radius: 15px; }
+  .scene-label { inset: auto 10px 10px; padding: 7px 10px; }
+}
+
+
+.game-panel:has(.feedback.success) { animation: safe-response .38s ease-out; }
+.calm .game-panel { animation: none; }
+@keyframes safe-response { from { box-shadow: inset 0 0 0 3px #9fbda9; } to { box-shadow: inset 0 0 0 0 #9fbda9; } }

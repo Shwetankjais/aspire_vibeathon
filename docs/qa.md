@@ -1,63 +1,21 @@
-# Disaster Dash QA & Judge Runbook
+# Judge runbook and verification
 
-This document provides the independent QA verification, the 60-Second Judge Runbook (DOC-02), and the Five-Test Checklist (DOC-03) for **Disaster Dash** (VibeSprint Problem Card 08).
+## DOC-02 · 60-second judge demo
 
----
+1. Open the local production preview. Skip the welcome, then choose **Play Disaster Dash** and **Start round**. The classroom question starts with a 20-second timer.
+2. Choose **Drop, cover, and hold on under the desk**. Read the feedback, turn on **Calm Mode**, then choose **Next round**. The flood question has a short prompt and an untimed layout.
+3. Choose **Turn around and head to higher ground**. Advance, then choose **Leave by the clear exit and go to the outside meeting place**. Select **See results**. Expect 3 / 3, three secured locations, and links to the safety sources.
 
-## DOC-02 · Judge Runbook (60-Second Evaluation Flow)
+Sundarpur and its hazards are fictional. Choices, scoring, and feedback run locally.
 
-| Step | Action | Expected Output | Notes |
-|:---:|:---|:---|:---|
-| **1** | Open `http://localhost:4173/#/` (or run `npm run preview`). | Cream homepage renders with "Disaster Dash", village hero artwork, and "Play Disaster Dash" yellow CTA. Tour dialog appears automatically on fresh session. | Tour can be dismissed with **Skip** or **✕** (returns focus to CTA). |
-| **2** | Click **Play Disaster Dash** (or press Enter). | Route navigates to `#/play`. Mission Briefing displays the Disaster Devil threat, three hazard hubs, the simulation notice, and the Calm Mode switch. | Ready to test Round 1. |
-| **3** | Click **Start Round 1: Village School**. | Round 1 renders with classroom earthquake illustration, 20-second active countdown timer bar, and 3 numbered choices. | Keyboard shortcuts `1`, `2`, `3` active. |
-| **4** | **THE TWIST:** Flip the **Calm Mode switch** in the upper right. | Timer bar disappears immediately, timeout is cancelled, and shorter calm prompt appears. | Confirms mid-round twist handling with zero countdown panic. |
-| **5** | Click Choice 1: *"Drop to your hands and knees..."* | Immediate feedback appears with green shield, detailed explanation of falling debris protection, and the authoritative FEMA Ready.gov source link. | Feedback is completely untimed. |
-| **6** | Click **Continue to Round 2**. | Round 2 (River Crossing Flood) loads untimed in Calm Mode with teal theme. | Untimed state persists across rounds. |
-| **7** | Click Choice 1: *"Turn around immediately..."* then advance to Round 3 and select Choice 1: *"Crawl low beneath smoke..."*. | Advances through Flood and Fire scenarios to the final **Mission Report**. | Full start-to-finish core journey. |
-| **8** | Review the **Mission Report** Debrief. | Score displays **3 / 3**, night celebration illustration displays with lit lanterns, all 3 village hubs marked SECURE, and 3 critical safety takeaways listed. | Perfect run celebration. |
+## DOC-03 · Five-test checklist
 
----
+| Test | Action | Expected result |
+| --- | --- | --- |
+| Timeout | Leave the first question unanswered for 20 seconds. | **Time ran out** displays the safest action and reason. The choices are disabled. |
+| Perfect run | Complete the judge demo above. | The debrief shows 3 / 3 and the illuminated village. |
+| Calm Mode | Enable Calm Mode in an unanswered timed round and wait past the original deadline. Then turn Calm Mode off. | The same question remains answerable. Turning the mode off starts a fresh 20-second countdown. |
+| Refresh | Go home from a round, reload home, then reload the play route. | Navigation home preserves the tour dismissal. A home reload shows the welcome. A play reload opens briefing with a fresh run. |
+| Scoring and practice | Submit a wrong answer, then finish with 2 / 3 and practice the miss. | Only the missed location reappears. Practice results show the original 2 / 3 separately. An answer can resolve each round only once. |
 
-## DOC-03 · Five-Test Checklist
-
-### Test 1: Invalid Action / Timeout Handling
-- **Action:** In Round 1 (Normal Mode), wait for the 20-second countdown timer to reach 0 without selecting an answer.
-- **Expected Result:** Timer reaches `⏱ 0s`. Engine automatically records timeout (`isTimeout: true, isCorrect: false`), transitions to Feedback screen with purple/red banner *"Time Ran Out!"*, and explains the danger of hesitation while displaying the safest action.
-- **Result:** **PASS** (Verified by automated unit test `test-engine.js` and browser verification).
-
-### Test 2: Happy Path (Perfect Run)
-- **Action:** Complete all three rounds selecting the correct safe actions:
-  - Round 1: `drop-cover-hold`
-  - Round 2: `turn-around-high-ground`
-  - Round 3: `crawl-low-feel-door`
-- **Expected Result:** Score calculates to 3/3. Results screen lights up with warm village celebration art, all 3 location cards (School, River Road, Home) display green `🛡️ SECURE` badges, and no practice button is needed.
-- **Result:** **PASS** (Verified via automated Puppeteer flow and screenshot capture).
-
-### Test 3: The Event Twist (Calm Mode Reversibility & Mid-Round Cancellation)
-- **Action 3A:** Start Round 1 in Normal Mode. Let timer count down to 12s. Toggle Calm Mode **ON**.
-- **Expected Result 3A:** Countdown bar and numeric timer hide immediately. Timeout deadline is cancelled. Waiting beyond the original 20s mark does NOT trigger timeout. Choice can still be submitted for full credit.
-- **Action 3B:** In an unanswered round with Calm Mode active, toggle Calm Mode **OFF**.
-- **Expected Result 3B:** Normal Mode resumes with a **fresh full 20-second timer**, preventing unfair timeouts caused by remaining fractional seconds.
-- **Result:** **PASS** (Verified in engine tests and interactive testing).
-
-### Test 4: Reset & Refresh Behavior
-- **Action 4A:** Mid-game on route `#/play`, refresh the browser page.
-- **Expected Result 4A:** Refreshed play route restarts at the Mission Briefing with fresh state (no corrupted partial timers).
-- **Action 4B:** On results screen, click **Return Home**.
-- **Expected Result 4B:** State resets completely, navigating to `#/` with clean landing page. Re-clicking "Play" starts fresh Round 1.
-- **Result:** **PASS** (Verified in router lifecycle tests).
-
-### Test 5: Boundary & Single Scoring Guarantee
-- **Action 5A:** Repeatedly click / double-click a choice button rapidly.
-- **Expected Result 5A:** The first click resolves the round and sets `answered = true`. Subsequent clicks are ignored; score is incremented at most once.
-- **Action 5B:** Deliberately miss 1 or 2 rounds. Click **Practice Missed Rounds**.
-- **Expected Result 5B:** A practice queue is launched containing *only* the missed scenario IDs (e.g. 1 or 2 rounds). The original run score is preserved and not overwritten.
-- **Result:** **PASS** (Verified in `scripts/test-engine.js`).
-
----
-
-## Offline & Zero-Secret Verification
-- Zero network requests to third-party CDNs or external APIs during gameplay.
-- All SVG illustrations, fonts, and scenario fixtures are bundled locally.
-- Requires no `.env` file, database, or API keys.
+Codex checked both score paths, timeout, the tour with keyboard and Escape, the Calm Mode timer cancellation beyond its original deadline, timer restart, refresh, and missed-round practice in the browser. Codex also checked the 360-pixel layout after fixing overflow in the village scene and inspected the reduced-motion stylesheet rule. The scenario validator is available as `npm test`. These results refer to the integrated app. Independent verification of this version remains pending.

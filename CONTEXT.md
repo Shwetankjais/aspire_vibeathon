@@ -1,10 +1,7 @@
 # Current project context
 
-Disaster Dash (VibeSprint Problem Card 08) is fully built, tested, and documented.
+Disaster Dash is VibeSprint Problem Card 08. The app uses Vite, native JavaScript modules, and local assets. The application branch is `codex/disaster-dash-app`. It started at `e4552a7f8d72714f822596cef09bc117657f3857`.
 
-## Implementation Summary
-- **Content:** Three fully validated emergency scenarios for Earthquake (School), Flood (River Crossing), and Fire (Home) in `src/features/game/content/scenarios.js` based on FEMA, NOAA/CERT, and USFA guidelines.
-- **Engine:** Pure state machine in `src/features/game/engine/gameStore.js` with single-scoring guarantee, 20s countdown timer, Calm Mode cancellation, and practice mode for missed rounds.
-- **UI & Art:** OWASP NIE-inspired design (cream `#FAF7F0`, dark ink `#151515`, yellow pill `#FFCE4A`, pink underline `#FF6B8B`), custom vector illustrations for village, devil, and 3 hazard scenes, responsive layout, full keyboard navigation (`1`, `2`, `3` keys), and accessible focus rings.
-- **Twist:** Calm Mode toggle implemented across Briefing, Question, and Feedback with instant timer cancellation, low-stimulation neutral palette, and fresh timer restart on reversal.
-- **Verification:** Unit and contract tests passing (`npm test`), static build verified (`npm run build`), and high-resolution screenshots generated (`docs/screenshots/`).
+Codex integrated Antigravity's scenario module and validator from the Desktop working copy. The production module exports the agreed three scenarios. The integrated branch includes a verified local run, a judge runbook, and two screenshots. See [the README](README.md) for launch steps and [QA](docs/qa.md) for checked behavior. Independent QA of the integrated app and the assigned documentation card remain pending.
+
+Antigravity's branch and GitHub `main` reached `ec3bbbf1ac04fa53e469bd94d57a3542339a8f5a` during final verification. That commit contains a parallel app. The integration branch preserves both histories, uses the verified Codex implementation, and incorporates the peer fixture, validation, and engine test coverage.

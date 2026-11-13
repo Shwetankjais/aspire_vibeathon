@@ -1,160 +1,78 @@
-import { gameStore } from '../features/game/engine/gameStore.js';
-import { HomeScreen } from '../features/home/HomeScreen.js';
-import { TourModal } from '../features/onboarding/TourModal.js';
-import { BriefingScreen } from '../features/game/screens/BriefingScreen.js';
-import { QuestionScreen } from '../features/game/screens/QuestionScreen.js';
-import { FeedbackScreen } from '../features/game/screens/FeedbackScreen.js';
-import { ResultsScreen } from '../features/game/screens/ResultsScreen.js';
-import { Router } from './router.js';
+import '@fontsource-variable/bricolage-grotesque/wght.css';
+import '@fontsource-variable/dm-sans/wght.css';
+import './styles.css';
+import '../features/game/themes/hazards.css';
+import { icon } from './icons.js';
+import { home } from '../features/home/home.js';
+import { openTour } from '../features/onboarding/tour.js';
+import { scenarios } from '../features/game/content/scenarios.js';
+import { createGame, ROUND_MS } from '../features/game/engine/game.js';
+import { gameScreen } from '../features/game/screens/game-screen.js';
 
-class App {
-  constructor() {
-    this.appRoot = document.getElementById('app');
-    this.activeQuestionScreen = null;
+const app = document.querySelector('#app');
+let currentRoute;
+let tourDismissed = false;
 
-    // Initialize Tour
-    this.tourModal = new TourModal({
-      onComplete: () => {
-        // Return focus to primary CTA if on home
-        const heroPlayBtn = document.getElementById('heroPlayBtn');
-        if (heroPlayBtn) heroPlayBtn.focus();
-      }
-    });
+const game = createGame(scenarios, render, remaining => {
+  const seconds = app.querySelector('[data-seconds]');
+  const bar = app.querySelector('[data-timer-bar]');
+  if (!seconds || !bar) return;
+  seconds.textContent = `${Math.ceil(remaining / 1000)}s`;
+  bar.style.transform = `scaleX(${remaining / ROUND_MS})`;
+  seconds.closest('.timer').classList.toggle('urgent', remaining <= 5000);
+});
 
-    // Initialize Screens
-    this.homeScreen = new HomeScreen({
-      onPlay: () => this.startGame(),
-      onHowToPlay: () => this.tourModal.open(true)
-    });
+function showTour() {
+  openTour(() => {
+    tourDismissed = true;
+    app.querySelector('#play-link')?.focus();
+  });
+}
 
-    this.briefingScreen = new BriefingScreen({
-      store: gameStore,
-      onStartRound: () => gameStore.startRound(),
-      onHome: () => this.exitToHome()
-    });
+function render(reason) {
+  const playing = currentRoute === '#/play';
+  const focused = reason === 'mode' ? '[data-action="mode"]' : reason === 'feedback' ? '[data-feedback]' : '#main h1';
+  app.innerHTML = `
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="#/" aria-label="Disaster Dash home"><span>${icon('logo')}</span> Disaster Dash</a>
+        ${playing ? '' : `<button type="button" class="text-button help-button" data-action="tour">${icon('help')} How to play</button>`}
+      </div>
+    </header>
+    ${playing ? gameScreen(game) : home()}
+    <footer class="site-footer wrap"><span>Disaster Dash</span><span>Educational simulation</span></footer>`;
 
-    this.questionScreen = new QuestionScreen({
-      store: gameStore,
-      onSubmitAnswer: (choiceId) => gameStore.submitAnswer(choiceId),
-      onHome: () => this.exitToHome()
-    });
+  if (reason === 'route' && !playing) return;
+  app.querySelector(focused)?.focus({ preventScroll: reason === 'mode' });
+  if (reason !== 'mode' && reason !== 'feedback') window.scrollTo(0, 0);
+}
 
-    this.feedbackScreen = new FeedbackScreen({
-      store: gameStore,
-      onNextRound: () => gameStore.nextRound(),
-      onHome: () => this.exitToHome()
-    });
-
-    this.resultsScreen = new ResultsScreen({
-      store: gameStore,
-      onPlayAgain: () => this.startGame(),
-      onPracticeMissed: () => gameStore.startPractice(),
-      onHome: () => this.exitToHome()
-    });
-
-    // Subscribe to store updates
-    this.lastRenderedStage = null;
-    gameStore.subscribe((state) => this.handleStoreUpdate(state));
-
-    // Initialize Router
-    this.router = new Router({
-      '#/': () => this.renderHome(),
-      '#/play': () => this.renderPlay()
-    });
-  }
-
-  start() {
-    this.router.start();
-  }
-
-  exitToHome() {
-    if (this.activeQuestionScreen) {
-      this.activeQuestionScreen.unmount();
-      this.activeQuestionScreen = null;
-    }
-    gameStore.reset();
-    this.lastRenderedStage = null;
-    this.router.navigate('#/');
-  }
-
-  startGame() {
-    gameStore.startRun();
-    this.router.navigate('#/play');
-  }
-
-  renderHome() {
-    if (this.activeQuestionScreen) {
-      this.activeQuestionScreen.unmount();
-      this.activeQuestionScreen = null;
-    }
-    this.lastRenderedStage = 'HOME';
-    this.homeScreen.render(this.appRoot);
-
-    // Auto-launch tour if not previously dismissed
-    setTimeout(() => {
-      if (window.location.hash === '#/' || window.location.hash === '') {
-        this.tourModal.open(false);
-      }
-    }, 400);
-  }
-
-  renderPlay() {
-    const state = gameStore.getState();
-    if (state.stage === 'HOME') {
-      // If refreshed on #/play route, start fresh at briefing
-      gameStore.startRun();
-      return;
-    }
-
-    this.renderGameState(state);
-  }
-
-  handleStoreUpdate(state) {
-    if (this.router.currentRoute !== '#/play') return;
-
-    if (this.lastRenderedStage !== state.stage || state.currentIndex !== this.lastIndex) {
-      this.lastRenderedStage = state.stage;
-      this.lastIndex = state.currentIndex;
-      this.renderGameState(state);
-    } else if (state.stage === 'QUESTION' && this.activeQuestionScreen) {
-      // Update timer smoothly without re-rendering whole question card
-      this.activeQuestionScreen.updateTimer();
-    }
-  }
-
-  renderGameState(state) {
-    if (this.activeQuestionScreen && state.stage !== 'QUESTION') {
-      this.activeQuestionScreen.unmount();
-      this.activeQuestionScreen = null;
-    }
-
-    switch (state.stage) {
-      case 'BRIEFING':
-        this.briefingScreen.render(this.appRoot);
-        break;
-
-      case 'QUESTION':
-        this.activeQuestionScreen = this.questionScreen;
-        this.questionScreen.mount(this.appRoot);
-        break;
-
-      case 'FEEDBACK':
-        this.feedbackScreen.render(this.appRoot);
-        break;
-
-      case 'RESULTS':
-        this.resultsScreen.render(this.appRoot);
-        break;
-
-      default:
-        this.renderHome();
-        break;
-    }
+function route() {
+  const next = location.hash === '#/play' ? '#/play' : '#/';
+  if (next === currentRoute) return;
+  currentRoute = next;
+  if (next === '#/play') game.brief();
+  else {
+    game.leave();
+    render('route');
+    window.scrollTo(0, 0);
+    if (!tourDismissed) showTour();
+    else app.querySelector('#play-link').focus({ preventScroll: true });
   }
 }
 
-// Bootstrap application on DOM load
-window.addEventListener('DOMContentLoaded', () => {
-  const app = new App();
-  app.start();
+app.addEventListener('click', event => {
+  const button = event.target.closest('[data-action]');
+  switch (button?.dataset.action) {
+    case 'tour': showTour(); break;
+    case 'start': game.start(); break;
+    case 'answer': game.answer(button.dataset.choice); break;
+    case 'mode': game.toggleCalm(); break;
+    case 'advance': game.advance(); break;
+    case 'practice': game.practice(); break;
+    case 'replay': game.brief(); break;
+  }
 });
+
+window.addEventListener('hashchange', route);
+route();
