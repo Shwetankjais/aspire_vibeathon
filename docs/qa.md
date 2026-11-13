@@ -4,7 +4,7 @@
 
 **Play the deployed game:** [Disaster Dash](https://shwetankjais.github.io/aspire_vibeathon/)
 
-This submission packages the deployed application from main commit `7b40030acdd73c339143ceadd557f8a66ec170d7`. The original Sundarpur illustration is back on the briefing and throughout Classic, including the Eldrin path. Sundarpur and its scenarios are fictional. The game uses bundled content and local scoring.
+This submission packages the deployed application from main commit `7b362b83d54ce6112a948ed9c5667bb1e3e95b4b`. The original Sundarpur illustration is back on the briefing and throughout Classic, including the Eldrin path. Sundarpur and its scenarios are fictional. The game uses bundled content and local scoring.
 
 ### Classic judge path · about 60 seconds
 
@@ -63,3 +63,9 @@ This submission packages the deployed application from main commit `7b40030acdd7
 | Scoring and practice | Submit a wrong answer, then finish with 2 / 3 and practice the miss. | Only the missed location reappears. Practice results show the original 2 / 3 separately. An answer can resolve each round only once. |
 
 Codex checked both score paths, timeout, the tour with keyboard and Escape, the Calm Mode timer cancellation beyond its original deadline, timer restart, refresh, and missed-round practice in the browser. Codex also checked the 360-pixel layout after fixing overflow in the village scene and inspected the reduced-motion stylesheet rule. The scenario validator is available as `npm test`. These results refer to the integrated app. Independent verification of this version remains pending.
+
+## Final tour release verification
+
+The final deployed release includes the refined three-step welcome tour. Live checks passed for tour navigation, keyboard focus, mobile layout, reduced motion, Classic correct and incorrect answers, timeout, practice, Calm Mode, Eldrin, Visual Challenges, and Rapid Pick. Gameplay was checked with third-party requests blocked. The original Sundarpur artwork remains in the briefing and both Classic entry paths.
+
+The welcome tour uses bundled scenario choices and the same feedback renderer as gameplay. Manual replay returns focus to How to play, and automatic dismissal returns focus to Play Disaster Dash.
