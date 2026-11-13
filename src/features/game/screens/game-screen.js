@@ -9,8 +9,8 @@ function action(label, id, kind = 'primary') {
   return `<button type="button" class="button ${kind}" data-action="${id}">${label}</button>`;
 }
 
-export function choiceMarkup(choice, index, state = '') {
-  return `<button type="button" class="choice ${state}" data-action="answer" data-choice="${choice.id ?? ''}" ${state ? 'disabled' : ''}>
+export function choiceMarkup(choice, index, state = '', preview = false) {
+  return `<button type="button" class="choice ${state}" ${preview ? `data-tour-choice="${choice.id}" aria-pressed="${state === 'selected'}"` : 'data-action="answer"'} data-choice="${choice.id ?? ''}" ${state && !preview ? 'disabled' : ''}>
     <span class="choice-letter">${String.fromCharCode(65 + index)}</span><span>${choice.label}</span>${icon(state === 'safe' ? 'check' : 'arrow')}
   </button>`;
 }
@@ -18,6 +18,17 @@ export function choiceMarkup(choice, index, state = '') {
 export function feedbackMarkup(title, message, kind) {
   return `<div class="feedback ${kind}"><div class="feedback-icon">${icon(kind === 'success' ? 'check' : 'info')}</div>
     <div><h3>${title}</h3><div class="feedback-copy">${message}</div></div></div>`;
+}
+
+export function roundFeedback(scenario, choiceId) {
+  const safe = scenario.choices.find(choice => choice.id === scenario.correctChoiceId);
+  const selected = scenario.choices.find(choice => choice.id === choiceId);
+  const correct = choiceId === safe.id;
+  const title = correct ? 'Safe choice' : selected ? 'A safer choice was available' : 'Time ran out';
+  const message = correct
+    ? `<p><strong>Your choice:</strong> ${safe.label}</p><p>${safe.explanation}</p>`
+    : `${selected ? `<p><strong>Your choice:</strong> ${selected.label} ${selected.explanation}</p>` : ''}<p><strong>Safest action:</strong> ${safe.label}</p><p>${safe.explanation}</p>`;
+  return feedbackMarkup(title, message, correct ? 'success' : 'miss');
 }
 
 function calmControl(calm) {
@@ -53,11 +64,7 @@ function question(run, scenario, calm, dialogue) {
   const selected = scenario.choices.find(choice => choice.id === outcome?.choiceId);
   let feedback = '';
   if (outcome) {
-    const title = outcome.correct ? 'Safe choice' : selected ? 'A safer choice was available' : 'Time ran out';
-    const message = outcome.correct
-      ? `<p><strong>Your choice:</strong> ${safe.label}</p><p>${safe.explanation}</p>`
-      : `${selected ? `<p><strong>Your choice:</strong> ${selected.label} ${selected.explanation}</p>` : ''}<p><strong>Safest action:</strong> ${safe.label}</p><p>${safe.explanation}</p>`;
-    feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${feedbackMarkup(title, message, outcome.correct ? 'success' : 'miss')}
+    feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${roundFeedback(scenario, outcome.choiceId)}
       ${scenario.format || dialogue ? `<p class="visual-description"><strong>Takeaway:</strong> ${scenario.takeaway}</p>` : ''}
       ${journalEntry(outcome.correct ? dialogue?.correct : dialogue?.incorrect)}</section>
       <div class="panel-actions">${action(`${run.index + 1 === run.queue.length ? 'See results' : 'Next round'} ${icon('arrow')}`, 'advance')}</div>`;

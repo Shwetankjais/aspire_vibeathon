@@ -18,7 +18,6 @@ import { createChallengeHost } from '../features/game/challenges/lifecycle.js';
 const app = document.querySelector('#app');
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let currentRoute;
-let tourDismissed = false;
 
 const game = createGame(scenarios, render, remaining => {
   const seconds = app.querySelector('[data-seconds]');
@@ -30,10 +29,9 @@ const game = createGame(scenarios, render, remaining => {
 }, createVisualDraw([...sceneScenarios, ...rapidScenarios]));
 const challenge = createChallengeHost(game, app, motion);
 
-function showTour() {
+function showTour(returnSelector = '#play-link') {
   openTour(() => {
-    tourDismissed = true;
-    app.querySelector('#play-link')?.focus();
+    app.querySelector(returnSelector)?.focus();
   });
 }
 
@@ -60,13 +58,14 @@ function render(reason) {
 function route() {
   const next = location.hash === '#/play' ? '#/play' : '#/';
   if (next === currentRoute) return;
+  const firstRoute = currentRoute === undefined;
   currentRoute = next;
   if (next === '#/play') game.brief();
   else {
     game.leave();
     render('route');
     window.scrollTo(0, 0);
-    if (!tourDismissed) showTour();
+    if (firstRoute) showTour();
     else app.querySelector('#play-link').focus({ preventScroll: true });
   }
 }
@@ -74,7 +73,7 @@ function route() {
 app.addEventListener('click', event => {
   const button = event.target.closest('[data-action]');
   switch (button?.dataset.action) {
-    case 'tour': showTour(); break;
+    case 'tour': showTour('[data-action="tour"]'); break;
     case 'start': game.start(); break;
     case 'start-guide': game.start(true); break;
     case 'guide': game.toggleGuide(); break;
