@@ -14,3 +14,6 @@ Record any agreed changes here with the date, reason, and affected contract.
 - The verified baseline contained planning files. Use Vite with native modules and bundle the fonts and illustrations with the game.
 - Preserve the scenario module interface. Integrate the peer fixtures and validator from the Desktop working copy. Use shorter explanations in both modes and specify a clear exit in both fire prompts.
 - Place the question above the illustration on narrow screens so players can reach the choices while the timer runs.
+
+- Draw one scene and one Rapid Pick prompt for each new visual run, excluding the previous pair. Practice reuses the exact missed scenarios.
+- Load each renderer when its question opens. The text choices become the fallback if loading fails or times out. Calm Mode makes text choices immediately usable.

@@ -70,12 +70,12 @@ async function testHarness() {
     assert(floodCards.length === 3, '3 cards rendered for Flood scenario');
 
     // Test Keyboard navigation (press '1' or 'A')
-    console.log('Testing keyboard shortcut (Key 1)...');
-    await page.keyboard.press('1');
+    console.log('Testing keyboard shortcut (Key 3)...');
+    await page.keyboard.press('3');
     await new Promise(r => setTimeout(r, 200));
 
     const statusKey = await page.$eval('#status-log', el => el.textContent);
-    assert(statusKey.includes("onChoose fired with 'turn-around-safely' (Correct: true)"), 'Keyboard shortcut 1 triggered safe flood choice');
+    assert(statusKey.includes("onChoose fired with 'turn-around-safely' (Correct: true)"), 'Keyboard shortcut 3 triggered safe flood choice');
 
     console.log('\n=============================================');
     console.log('🎉 ALL RAPID PICK BROWSER HARNESS TESTS PASSED!');

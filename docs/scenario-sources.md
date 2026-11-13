@@ -18,3 +18,8 @@ The characters, places, and situations in Disaster Dash are fictional. The app b
   - *Source Guidance:* [FEMA CERT flood guidance](https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf) and NOAA / NWS "Turn Around Don't Drown".
   - *Safe Choice (`turn-around-safely`):* Turn around safely and seek an elevated detour. Keeping vehicles off flooded roads avoids swift water and hidden roadbed washouts.
   - *Unsafe Choices:* Driving through slowly (`drive-through-slowly`) risks stalling and vehicle float in as little as 12 inches of water; following another vehicle into the water (`follow-vehicle-water`) exposes the car to turbulent wakes and offers zero protection against buoyant sweep.
+
+## Find the safe choice
+
+- The dining hall fixture places the character next to a sturdy table during shaking. The demonstration shows dropping low, shielding the head and neck, and holding a table leg. [FEMA Earthquake Hazard Information Sheet](https://www.ready.gov/sites/default/files/2024-03/ready-gov_full-suite_hazard-info-sheets.pdf)
+- The flood junction offers a reachable dry uphill route. Both the low road and the bridge approach require entering water. [FEMA CERT flood guidance](https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf)

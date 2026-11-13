@@ -67,7 +67,8 @@
 .scene-target:hover { background: #ffdb73; }
 .scene-target:focus-visible { outline-color: #ffe393; }
 .scene-target span { display: grid; place-items: center; width: 26px; aspect-ratio: 1; border-radius: 50%; background: #e5dcf2; }
-.dining-hall .target-0 { left: 50%; top: 67%; transform: translateX(-50%); }
+.dining-hall .target-0 { left: 50%; top: calc(50% + 55px); transform: translateX(-50%); }
+.dining-hall .target-0::before { content: ''; position: absolute; inset: -58px 0 0; }
 .dining-hall .target-1 { left: 12%; top: 23%; }
 .dining-hall .target-2 { right: 10%; top: 30%; }
 .flood-junction .target-0 { left: 4%; top: 50%; }
