@@ -1,10 +1,12 @@
 {
   "devDependencies": {
+    "puppeteer-core": "^25.17.0",
     "vite": "7.3.8"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "5.3.0",
-    "@fontsource-variable/dm-sans": "5.3.0"
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "three": "^0.180.0"
   },
   "name": "disaster-dash",
   "private": true,
@@ -13,6 +15,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node scripts/test-scenarios.js && node scripts/test-rapid.js && node scripts/test-oracle.js && node --test scripts/test-engine.js scripts/test-visual.js"
+    "test": "node scripts/test-scenarios.js && node scripts/test-rapid.js && node scripts/test-oracle.js && node --test scripts/test-engine.js scripts/test-visual.js && node --test scripts/test-village.js",
+    "test:browser": "npm run build && node scripts/test-village-browser.js"
   }
 }

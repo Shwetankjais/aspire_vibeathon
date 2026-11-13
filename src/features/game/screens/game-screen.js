@@ -1,3 +1,4 @@
+import { villageMarkup } from '../village/host.js';
 import { icon } from '../../../app/icons.js';
 import { oracleJourney } from '../content/oracle-dialogue.js';
 import { guideControl, journalEntry } from '../oracle/journal.js';
@@ -127,7 +128,7 @@ export function gameScreen(game) {
       ${visualBoard ? `<aside class="challenge-board" tabindex="-1" aria-label="Visual challenge">
         <header class="challenge-heading">${icon(game.scenario.hazard)} <strong>${game.scenario.location}</strong><span>${game.scenario.hazard}</span></header>
         <div data-challenge></div>
-      </aside>` : scene(active ? game.scenario : null, calm, restored)}
+      </aside>` : (run.phase === 'briefing' || (active && run.kind === 'classic')) ? villageMarkup() : scene(active ? game.scenario : null, calm, restored)}
       <section class="game-panel ${active ? game.scenario.hazard : ''}">${active ? question(run, game.scenario, calm, dialogue) : run.phase === 'briefing' ? briefing(run, calm) : results(run, guideAvailable && run.guide ? oracleJourney.closing : undefined)}
       ${note}</section>
     </div>

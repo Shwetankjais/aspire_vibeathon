@@ -9,3 +9,7 @@ Antigravity's branch and GitHub `main` reached `ec3bbbf1ac04fa53e469bd94d57a3542
 ## Visual Challenges review
 
 The expansion lives on `codex/visual-challenges`, forked from `27754ea9893710c1646f73cacd2c6640bd2ea89b`. It integrates Antigravity's `7775af04d6801d48bf2ebe5ec301ad838355e0aa` and shares the original game's timer, score, and results engine. [Integration checks](docs/progress-codex.md#visual-challenges)
+
+## Living Village review
+
+`codex/animated-sundarpur` starts at `9b48a5c0d674b0c10eccb36b2a7c449036629d2c`. Adds Classic-only earthquake, flood and fire village sequences. Contract: [Living Village handoff](docs/living-village-contract.md). This PR is for review only; current main and gh-pages must remain unchanged until deployment approval.
