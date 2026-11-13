@@ -23,3 +23,10 @@ The characters, places, and situations in Disaster Dash are fictional. The app b
 
 - The dining hall fixture places the character next to a sturdy table during shaking. The demonstration shows dropping low, shielding the head and neck, and holding a table leg. [FEMA Earthquake Hazard Information Sheet](https://www.ready.gov/sites/default/files/2024-03/ready-gov_full-suite_hazard-info-sheets.pdf)
 - The flood junction offers a reachable dry uphill route. Both the low road and the bridge approach require entering water. [FEMA CERT flood guidance](https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf)
+
+## The Oracle’s Journey (Eldrin Mentor Guidance)
+
+Eldrin's fictional mentor framing supports Calm Mode learning while preserving verbatim alignment with primary emergency guidelines:
+- **Earthquake (`school-earthquake`):** Eldrin's intro frames the physical classroom tremors while his dialogue reinforces dropping beneath the sturdy desk and holding on to avoid overhead falling fixtures (FEMA Ready.gov).
+- **Flood (`river-flood`):** Dialogue reinforces turning around to ascending high ground rather than challenging brown floodwaters of unseen depth (NWS Turn Around Don't Drown / CERT).
+- **Fire (`home-fire`):** Dialogue highlights that no belongings are worth precious seconds and that immediately exiting through clear pathways to the designated outdoor meeting place is essential (U.S. Fire Administration).
