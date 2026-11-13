@@ -28,3 +28,11 @@
   - `harness.html`: Standalone interactive test harness for local verification.
 - Verified contract with `scripts/test-rapid.js` and verified interactive browser lifecycle with `scripts/test-rapid-browser.js` via headless Chrome.
 - Updated `docs/scenario-sources.md` with primary source citations for both Rapid Pick scenarios.
+
+## Milestone A5: Eldrin Mentor Dialogue Sidecar (The Oracle's Journey)
+- Authored `src/features/game/content/oracle-dialogue.js` exporting `oracleJourney`:
+  - `welcome`: Brief introduction of Eldrin, Keeper of the Beacon, using village folklore and the Ashen Adversary metaphor.
+  - `closing`: Supportive travel-journal closing line on the results debrief screen.
+  - `byScenarioId`: Neutral, setting-specific introductions and supportive correct/incorrect responses keyed by all three classic scenario IDs (`school-earthquake`, `river-flood`, `home-fire`).
+- Verified strict contract compliance and ID resolution via `scripts/test-oracle.js`.
+- Validated source alignment in `docs/scenario-sources.md` ensuring dialogue preserves factual guidance from FEMA, NWS, and USFA without introducing new procedures or advice.

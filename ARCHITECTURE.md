@@ -49,3 +49,9 @@ Keep `explanation` short enough to reuse in both modes. On a wrong answer show t
 Use a small explicit flow: briefing → question → feedback → results. Store current scenario ID, mode, pending timer deadline, and an outcome per round. Resolve a question once by answer or timeout. Use a deadline for remaining time and cancel pending work on answer, enabling Calm Mode, replay, and leaving the route. Ignore stale callbacks. Starting the next round creates its own timer only in timed mode. Calculate score from resolved outcomes and never from clicks. A full refresh clears the run and reopens the welcome on the homepage. A refreshed play route starts at its briefing. Practice uses a new queue of missed scenario IDs and does not rewrite the prior score.
 
 The default round duration is 20 seconds. Do not deduct points for time spent in feedback or give speed bonuses. You may keep Calm Mode in session memory between runs. Separate tour state from game state and start a timer only when the question is visible and usable.
+
+## Oracle’s Journey dialogue
+
+`src/features/game/content/oracle-dialogue.js` exports `oracleJourney` with `welcome`, `closing`, and `byScenarioId`. The keys are `school-earthquake`, `river-flood`, and `home-fire`. Each entry has `intro`, `correct`, and `incorrect`. These strings are fictional dialogue. Scenario fixtures supply the factual prompts, choices, explanations, and takeaways. Missing entries use the ordinary Calm Mode view.
+
+A Classic run stores its guide preference separately from the session’s Calm Mode state. Timed mode hides the guide. Returning to Calm Mode restores it for the current question or feedback. Guide-only changes render the current screen without calling the clock or answer handlers.

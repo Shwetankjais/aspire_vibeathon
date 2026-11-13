@@ -40,7 +40,7 @@ function showTour() {
 function render(reason) {
   challenge.clear();
   const playing = currentRoute === '#/play';
-  const focused = reason === 'mode' ? '[data-action="mode"]' : reason === 'feedback' ? '[data-feedback]' : '#main h1';
+  const focused = reason === 'guide' ? '[data-action="guide"]' : reason === 'mode' ? '[data-action="mode"]' : reason === 'feedback' ? '[data-feedback]' : '#main h1';
   app.innerHTML = `
     <header class="site-header">
       <div class="wrap header-inner">
@@ -53,8 +53,8 @@ function render(reason) {
 
   if (playing) challenge.mount();
   if (reason === 'route' && !playing) return;
-  app.querySelector(focused)?.focus({ preventScroll: reason === 'mode' });
-  if (reason !== 'mode' && reason !== 'feedback') window.scrollTo(0, 0);
+  app.querySelector(focused)?.focus({ preventScroll: reason === 'mode' || reason === 'guide' });
+  if (reason !== 'mode' && reason !== 'guide' && reason !== 'feedback') window.scrollTo(0, 0);
 }
 
 function route() {
@@ -76,6 +76,8 @@ app.addEventListener('click', event => {
   switch (button?.dataset.action) {
     case 'tour': showTour(); break;
     case 'start': game.start(); break;
+    case 'start-guide': game.start(true); break;
+    case 'guide': game.toggleGuide(); break;
     case 'view-challenge': {
       app.querySelector('.challenge-board')?.focus();
       break;
