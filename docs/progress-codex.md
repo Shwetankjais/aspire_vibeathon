@@ -41,3 +41,6 @@ Append the task, branch, commit SHA, verified behavior, blockers, and Antigravit
 - Codex supplied the local fictional dialogue in `src/features/game/content/oracle-dialogue.js` because an Antigravity Oracle branch was unavailable. The stable IDs and sidecar contract are in ARCHITECTURE.md.
 - `npm test` and `npm run build` passed. Browser verification at the Pages subpath covered plain Calm Mode, a guided 2 / 3 run with a missed answer, timing and guide switches during questions and feedback, keyboard, replay, 360 px layout, and a 2 / 2 Visual Challenges run.
 - Independent review can run `npm ci`, `npm test`, `npm run build`, and `npm run preview`, then enable Calm Mode in briefing and choose **Begin with Eldrin**. Check all chapters and Visual Challenges.
+
+- Merged Antigravity’s dialogue and validator from `01b891c`. Edited the journal copy to fit the existing scenarios and keep safety procedures in the factual feedback. The Ashen Adversary appears once as a metaphor for fear. The dialogue validator now runs with `npm test`.
+- Retested the integrated production build at the Pages subpath. Guided Classic finished 2 / 3 with the closing line after restoring Eldrin on incorrect feedback. Visual Challenges finished 2 / 2 with a clean console.

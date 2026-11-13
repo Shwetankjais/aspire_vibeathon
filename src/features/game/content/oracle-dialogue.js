@@ -1,22 +1,28 @@
-// Fictional dialogue only. Safety guidance comes from the classic scenarios.
+/**
+ * The Oracle's Journey - Eldrin Mentor Dialogue Sidecar
+ *
+ * Fictional travel-journal guidance for Disaster Dash Calm Mode.
+ * Factual safety guidance remains sourced from FEMA, NWS, and USFA fixtures.
+ */
+
 export const oracleJourney = {
-  welcome: 'I’m Eldrin, Keeper of the Beacon. I’ll walk with you through Sundarpur and mark what you learn on my map.',
-  closing: 'Our walk ends here. Keep what you learned close, and return whenever you want more practice.',
+  welcome: "I am Eldrin, Keeper of the Beacon. The Ashen Adversary is what our village stories call fear. Let’s walk Sundarpur together.",
+  closing: "The lantern burns steady over Sundarpur tonight. Keep these lessons close, traveller.",
   byScenarioId: {
-    'school-earthquake': {
-      intro: 'Our first page opens in the village school, where the desks are rattling.',
-      correct: 'You made a clear choice even as the room shook.',
-      incorrect: 'Take a breath. We can turn this moment into something worth remembering.',
+    "school-earthquake": {
+      intro: "The timbers of the village school groan as the classroom floor shakes.",
+      correct: "Well steadied. You kept your focus as the room shook.",
+      incorrect: "A shaking room can be disorienting. Take a breath and read what happened."
     },
-    'river-flood': {
-      intro: 'At the river crossing, the road on my map has disappeared beneath the water.',
-      correct: 'You found a way forward by knowing when to turn back.',
-      incorrect: 'It’s easy to fix on the road ahead. Let’s look at the other route together.',
+    "river-flood": {
+      intro: "The road on my map disappears beneath the floodwater, but the way back uphill is clear.",
+      correct: "You saw a way forward by knowing when to turn back.",
+      incorrect: "It’s easy to focus on the road ahead. Let’s look at the other route together."
     },
-    'home-fire': {
-      intro: 'Our last page opens at a village home, where the alarm breaks the quiet.',
-      correct: 'You kept your attention on getting outside.',
-      incorrect: 'There’s a lot to think about when an alarm sounds. Let’s go over this choice together.',
-    },
-  },
+    "home-fire": {
+      intro: "The alarm breaks the quiet at a village home. The way to the outside door is clear.",
+      correct: "You kept your attention on getting outside.",
+      incorrect: "An alarm can make it hard to think. Let’s go over this choice together."
+    }
+  }
 };
