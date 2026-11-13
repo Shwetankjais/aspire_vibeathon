@@ -44,13 +44,3 @@ Append the task, branch, commit SHA, verified behavior, blockers, and Antigravit
 
 - Merged Antigravity’s dialogue and validator from `01b891c`. Edited the journal copy to fit the existing scenarios and keep safety procedures in the factual feedback. The Ashen Adversary appears once as a metaphor for fear. The dialogue validator now runs with `npm test`.
 - Retested the integrated production build at the Pages subpath. Guided Classic finished 2 / 3 with the closing line after restoring Eldrin on incorrect feedback. Visual Challenges finished 2 / 2 with a clean console.
-
-## Living Village
-
-Base main: 9b48a5c0d674b0c10eccb36b2a7c449036629d2c. Branch: codex/animated-sundarpur.
-
-Implemented the classic village feature with locally bundled Three.js, shared geometry/characters, three hazard controllers, independent scene clock, pause/resume/replay, still-step controls, reduced motion, immediate poster and captured local no-WebGL fallback. A delegated helper implemented flood/fire and reviewed safe paths; no external Antigravity sign-off is claimed.
-
-Verification: npm test, npm run build, and npm run test:browser passed. Production browser runs at the Pages project path completed timed Classic, plain Calm, Eldrin, practice, Visual Challenges and Rapid Pick in both timing modes. Confirmed timer isolation, a 21-second Calm wait beyond the original deadline, timeout, keyboard/mobile, reduced motion, initial WebGL failure, context loss, no uncaught errors, and zero external runtime requests. Fresh hazard frame sequences are in docs/screenshots/living-village; review steps in docs/living-village-qa.md.
-
-No changes to game engine, scenario content, or Visual Challenges/Rapid Pick feature files. Main and gh-pages remain untouched. Next action: review the PR and independently retest its head; deployment requires the user's explicit approval.

@@ -15,8 +15,6 @@ import { rapidScenarios } from '../features/game/challenges/rapid/rapid-scenario
 import { createVisualDraw } from '../features/game/challenges/draw.js';
 import { createChallengeHost } from '../features/game/challenges/lifecycle.js';
 
-import { createVillageHost } from '../features/game/village/host.js';
-
 const app = document.querySelector('#app');
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let currentRoute;
@@ -31,7 +29,6 @@ const game = createGame(scenarios, render, remaining => {
   seconds.closest('.timer').classList.toggle('urgent', remaining <= 5000);
 }, createVisualDraw([...sceneScenarios, ...rapidScenarios]));
 const challenge = createChallengeHost(game, app, motion);
-const village = createVillageHost(app, motion);
 
 function showTour() {
   openTour(() => {
@@ -42,7 +39,6 @@ function showTour() {
 
 function render(reason) {
   challenge.clear();
-  village.clear();
   const playing = currentRoute === '#/play';
   const focused = reason === 'guide' ? '[data-action="guide"]' : reason === 'mode' ? '[data-action="mode"]' : reason === 'feedback' ? '[data-feedback]' : '#main h1';
   app.innerHTML = `
@@ -55,7 +51,7 @@ function render(reason) {
     ${playing ? gameScreen(game) : home()}
     <footer class="site-footer wrap"><span>Disaster Dash</span><span>Educational simulation</span></footer>`;
 
-  if (playing) { challenge.mount(); village.mount(game); }
+  if (playing) challenge.mount();
   if (reason === 'route' && !playing) return;
   app.querySelector(focused)?.focus({ preventScroll: reason === 'mode' || reason === 'guide' });
   if (reason !== 'mode' && reason !== 'guide' && reason !== 'feedback') window.scrollTo(0, 0);
