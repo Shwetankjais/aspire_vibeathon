@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapid Pick Test Harness | Disaster Dash Expansion</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #FAF7F0;
+      color: #151515;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      font-weight: 700;
+      border: 2px solid #151515;
+      border-radius: 9999px;
+      background: #FFCE4A;
+      cursor: pointer;
+    }
+    .status-box {
+      background: #FFFFFF;
+      border: 2px solid #151515;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+    #challenge-mount {
+      background: #FFFFFF;
+      border: 3px solid #151515;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 4px 4px 0px #151515;
+      min-height: 260px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rapid Pick Challenge Harness</h1>
+  <p>Isolated verification harness for Disaster Dash Rapid Pick renderer.</p>
+
+  <div class="controls">
+    <button class="btn" id="btn-fire">Load Fire Rapid Pick</button>
+    <button class="btn" id="btn-flood">Load Flood Rapid Pick</button>
+    <label>
+      <input type="checkbox" id="chk-calm"> Calm Mode
+    </label>
+    <label>
+      <input type="checkbox" id="chk-reduced"> Reduced Motion
+    </label>
+  </div>
+
+  <div id="challenge-mount"></div>
+
+  <div class="status-box" id="status-log">Status: Initializing...</div>
+
+  <script type="module">
+    import { mountChallenge, rapidScenarios } from './index.js';
+
+    let currentHandle = null;
+    let currentScenario = rapidScenarios[0];
+    const mountEl = document.getElementById('challenge-mount');
+    const statusEl = document.getElementById('status-log');
+    const calmChk = document.getElementById('chk-calm');
+    const reducedChk = document.getElementById('chk-reduced');
+
+    function log(msg) {
+      statusEl.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      console.log(msg);
+    }
+
+    function render() {
+      if (currentHandle) {
+        currentHandle.destroy();
+        currentHandle = null;
+      }
+
+      log(`Mounting ${currentScenario.id} (Calm: ${calmChk.checked}, Reduced: ${reducedChk.checked})...`);
+
+      currentHandle = mountChallenge(mountEl, {
+        scenario: currentScenario,
+        calmMode: calmChk.checked,
+        reducedMotion: reducedChk.checked,
+        onReady: () => {
+          log(`onReady fired for ${currentScenario.id} - Host timer may start.`);
+        },
+        onChoose: (choiceId) => {
+          const isCorrect = choiceId === currentScenario.correctChoiceId;
+          log(`onChoose fired with '${choiceId}' (Correct: ${isCorrect})`);
+        }
+      });
+    }
+
+    document.getElementById('btn-fire').addEventListener('click', () => {
+      currentScenario = rapidScenarios[0];
+      render();
+    });
+
+    document.getElementById('btn-flood').addEventListener('click', () => {
+      currentScenario = rapidScenarios[1];
+      render();
+    });
+
+    calmChk.addEventListener('change', render);
+    reducedChk.addEventListener('change', render);
+
+    render();
+  </script>
+</body>
+</html>

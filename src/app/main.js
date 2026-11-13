@@ -11,7 +11,7 @@ import { createGame, ROUND_MS } from '../features/game/engine/game.js';
 import { gameScreen } from '../features/game/screens/game-screen.js';
 
 import { sceneScenarios } from '../features/game/challenges/scene/fixtures.js';
-import { rapidScenarios } from '../features/game/challenges/rapid/fixtures.js';
+import { rapidScenarios } from '../features/game/challenges/rapid/rapid-scenarios.js';
 import { createVisualDraw } from '../features/game/challenges/draw.js';
 import { createChallengeHost } from '../features/game/challenges/lifecycle.js';
 
@@ -76,6 +76,10 @@ app.addEventListener('click', event => {
   switch (button?.dataset.action) {
     case 'tour': showTour(); break;
     case 'start': game.start(); break;
+    case 'view-challenge': {
+      app.querySelector('.challenge-board')?.focus();
+      break;
+    }
     case 'visual': game.startVisual(); break;
     case 'briefing': game.brief(); break;
     case 'answer': game.answer(button.dataset.choice); break;

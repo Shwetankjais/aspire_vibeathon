@@ -52,7 +52,8 @@ function question(run, scenario, calm) {
     const message = outcome.correct
       ? `<p><strong>Your choice:</strong> ${safe.label}</p><p>${safe.explanation}</p>`
       : `${selected ? `<p><strong>Your choice:</strong> ${selected.label} ${selected.explanation}</p>` : ''}<p><strong>Safest action:</strong> ${safe.label}</p><p>${safe.explanation}</p>`;
-    feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${feedbackMarkup(title, message, outcome.correct ? 'success' : 'miss')}</section>
+    feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${feedbackMarkup(title, message, outcome.correct ? 'success' : 'miss')}
+      ${scenario.format ? `<p class="visual-description"><strong>Takeaway:</strong> ${scenario.takeaway}</p>` : ''}</section>
       <div class="panel-actions">${action(`${run.index + 1 === run.queue.length ? 'See results' : 'Next round'} ${icon('arrow')}`, 'advance')}</div>`;
   }
 
@@ -68,8 +69,9 @@ function question(run, scenario, calm) {
     ${countdown ? `<div class="timer-track" ${pendingTimer} aria-hidden="true"><div data-timer-bar></div></div>` : ''}
     <h1 tabindex="-1">${scenario.title}</h1>
     <p class="game-prompt">${calm ? scenario.calmPrompt : scenario.prompt}</p>
-    ${waiting ? '<p class="visual-description" data-reveal-status role="status">Preparing choices…</p>' : ''}
-    <div class="choices" data-choice-list ${waiting ? 'inert' : ''} role="group" aria-label="Available actions">
+    ${scenario.format && !outcome ? '<button type="button" class="text-button challenge-jump" data-action="view-challenge">View illustrated choices ↓</button>' : ''}
+    ${waiting && !calm ? '<p class="visual-description" data-reveal-status role="status">Preparing choices…</p>' : ''}
+    <div class="choices" data-choice-list ${waiting && !calm ? 'inert' : ''} role="group" aria-label="Available actions">
       ${scenario.choices.map((choice, index) => choiceMarkup(choice, index, outcome ? choice.id === safe.id ? 'safe' : choice.id === selected?.id ? 'selected' : 'inactive' : '')).join('')}
     </div>${feedback}`;
 }
@@ -106,7 +108,7 @@ export function gameScreen(game) {
     </div>
     ${calm && run.phase !== 'results' ? '<p class="calm-status" role="status">Calm Mode on · Take your time</p>' : ''}
     <div class="game-grid ${active ? 'active-round' : ''} ${visualBoard ? 'visual-round' : ''}">
-      ${visualBoard ? `<aside class="challenge-board" aria-label="Visual challenge">
+      ${visualBoard ? `<aside class="challenge-board" tabindex="-1" aria-label="Visual challenge">
         <header class="challenge-heading">${icon(game.scenario.hazard)} <strong>${game.scenario.location}</strong><span>${game.scenario.hazard}</span></header>
         <div data-challenge></div>
       </aside>` : scene(active ? game.scenario : null, calm, restored)}

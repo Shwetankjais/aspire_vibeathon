@@ -21,12 +21,12 @@ const junction = `
 const scenes = {
   'dining-hall': {
     artwork: diningHall,
-    labels: ['Sturdy table', 'Window', 'Doorway'],
+    labels: { table: 'Sturdy table', window: 'Window', doorway: 'Doorway' },
     response: 'Get low, cover your head and neck, and hold the table leg.',
   },
   'flood-junction': {
     artwork: junction,
-    labels: ['Flooded road', 'Dry uphill path', 'Bridge approach'],
+    labels: { road: 'Flooded road', uphill: 'Dry uphill path', bridge: 'Bridge approach' },
     response: 'Follow the dry path uphill without entering the water.',
   },
 };
@@ -41,8 +41,8 @@ export function mountChallenge(container, {
     <div class="spatial-view ${scenario.sceneId} ${stable ? 'stable' : ''} ${feedback ? 'demonstration' : ''}">
       <div class="scene-world" aria-hidden="true">${scene.artwork}</div>
       ${feedback ? '' : scenario.choices.map((choice, index) => `
-        <button type="button" class="scene-target target-${index}" data-target="${choice.id}" aria-label="${scene.labels[index]}: ${choice.label}">
-          <span aria-hidden="true">${String.fromCharCode(65 + index)}</span>${scene.labels[index]}
+        <button type="button" class="scene-target target-${index}" data-target="${choice.id}" aria-label="${scene.labels[choice.id]}: ${choice.label}">
+          <span aria-hidden="true">${String.fromCharCode(65 + index)}</span>${scene.labels[choice.id]}
         </button>`).join('')}
     </div>
     <p class="scene-instruction">${feedback ? scene.response : 'Select a marked spot or use the action list.'}</p>`;

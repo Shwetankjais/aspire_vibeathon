@@ -1,6 +1,6 @@
 const load = {
   scene: () => import('./scene/scene.js'),
-  rapid: () => import('./rapid/rapid.js'),
+  rapid: () => import('./rapid/index.js'),
 };
 
 // A stalled module must never trap the player or start the clock early.
@@ -25,10 +25,7 @@ export function createChallengeHost(game, root, motion) {
     let loading;
     let settled = false;
 
-    const ready = () => {
-      if (!active || settled) return;
-      settled = true;
-      clearTimeout(loading);
+    const unlockChoices = () => {
       if (feedback) return;
       root.querySelector('[data-choice-list]').inert = false;
       root.querySelector('[data-reveal-status]')?.remove();
@@ -38,10 +35,18 @@ export function createChallengeHost(game, root, motion) {
       game.ready();
     };
 
+    const ready = () => {
+      if (!active || settled) return;
+      settled = true;
+      clearTimeout(loading);
+      unlockChoices();
+    };
+
     const fallback = () => {
       if (!active || settled) return;
       view?.destroy();
       container.closest('.challenge-board').hidden = true;
+      root.querySelector('[data-action="view-challenge"]')?.remove();
       ready();
     };
 
@@ -51,6 +56,7 @@ export function createChallengeHost(game, root, motion) {
       view?.destroy();
     };
 
+    if (game.calm) unlockChoices();
     loading = setTimeout(fallback, LOAD_LIMIT_MS);
     load[scenario.format]().then(module => {
       if (!active || settled) return;

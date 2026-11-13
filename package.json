@@ -13,6 +13,6 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node scripts/test-scenarios.js && node --test scripts/test-engine.js"
+    "test": "node scripts/test-scenarios.js && node scripts/test-rapid.js && node --test scripts/test-engine.js scripts/test-visual.js"
   }
 }

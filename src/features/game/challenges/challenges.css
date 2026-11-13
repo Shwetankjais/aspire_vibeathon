@@ -9,3 +9,12 @@
 @media (max-width: 700px) {
   .challenge-board { border-radius: 15px; }
 }
+
+.scene-instruction { padding: 12px 16px; color: #51445b; font-size: .9rem; }
+.challenge-jump { display: none; }
+.calm .challenge-heading { background: #3b554d; }
+.calm .spatial-view, .calm .rapid-board { filter: saturate(.64); }
+@media (max-width: 700px) {
+  .challenge-jump { display: inline-flex; margin-top: 8px; }
+  .challenge-board { scroll-margin: 12px; }
+}
