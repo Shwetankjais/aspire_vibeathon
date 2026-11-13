@@ -47,7 +47,7 @@ h1:focus, h2:focus, [data-feedback]:focus { outline: none; }
 .hero-button svg:first-child { width: .95em; fill: currentColor; }
 .hero-button svg:last-child { margin-left: 12px; }
 .hero-art { position: relative; align-self: stretch; min-height: 430px; border-radius: 25px; background: #211431; border: 1px solid #211431; box-shadow: 7px 7px 0 #e6ddd0; overflow: hidden; }
-.art-inner { position: absolute; inset: 0; background: radial-gradient(ellipse at center, #583052, #211431 72%); }
+.art-inner { position: absolute; inset: 0; background: #211431 url('../assets/disaster-poster.jpg') center / cover no-repeat; }
 .art-corner { position: absolute; display: block; width: 22px; height: 22px; border: 1px solid #fff6cf82; }
 .art-corner.top { top: 15px; left: 15px; border-right: 0; border-bottom: 0; }
 .art-corner.bottom { bottom: 15px; right: 15px; border-top: 0; border-left: 0; }
@@ -139,6 +139,7 @@ h1:focus, h2:focus, [data-feedback]:focus { outline: none; }
   .home-facts > div + div { border-top: 1px solid var(--line); }
   .desktop-break { display: none; }
   .game-grid { grid-template-columns: 1fr; }
+  .active-round .game-panel { grid-row: 1; }
   .game-top { flex-wrap: wrap; }
   .round-progress { order: 2; width: 100%; }
   .game-panel { border-radius: 15px; }
@@ -146,5 +147,3 @@ h1:focus, h2:focus, [data-feedback]:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
-
-.art-inner { background: #211431 url('../assets/disaster-poster.jpg') center / cover no-repeat; }

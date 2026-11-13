@@ -5,7 +5,7 @@ import '../features/game/themes/hazards.css';
 import { icon } from './icons.js';
 import { home } from '../features/home/home.js';
 import { openTour } from '../features/onboarding/tour.js';
-import { scenarios } from '../features/game/content/checkpoint.js';
+import { scenarios } from '../features/game/content/scenarios.js';
 import { createGame, ROUND_MS } from '../features/game/engine/game.js';
 import { gameScreen } from '../features/game/screens/game-screen.js';
 

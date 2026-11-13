@@ -49,7 +49,7 @@ function question(run, scenario, calm) {
     const title = outcome.correct ? 'Safe choice' : selected ? 'A safer choice was available' : 'Time ran out';
     const message = outcome.correct
       ? `<p><strong>Your choice:</strong> ${safe.label}</p><p>${safe.explanation}</p>`
-      : `${selected ? `<p><strong>Your choice:</strong> ${selected.label}${calm ? '' : ` ${selected.explanation}`}</p>` : ''}<p><strong>Safest action:</strong> ${safe.label}</p><p>${safe.explanation}</p>`;
+      : `${selected ? `<p><strong>Your choice:</strong> ${selected.label} ${selected.explanation}</p>` : ''}<p><strong>Safest action:</strong> ${safe.label}</p><p>${safe.explanation}</p>`;
     feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${feedbackMarkup(title, message, outcome.correct ? 'success' : 'miss')}</section>
       <div class="panel-actions">${action(`${run.index + 1 === run.queue.length ? 'See results' : 'Next round'} ${icon('arrow')}`, 'advance')}</div>`;
   }
@@ -95,7 +95,7 @@ export function gameScreen(game) {
       ${run.phase !== 'results' ? calmControl(calm) : ''}
     </div>
     ${calm && run.phase !== 'results' ? '<p class="calm-status" role="status">Calm Mode on · Take your time</p>' : ''}
-    <div class="game-grid">
+    <div class="game-grid ${active ? 'active-round' : ''}">
       ${scene(active ? game.scenario : null, calm, restored)}
       <section class="game-panel ${active ? game.scenario.hazard : ''}">${active ? question(run, game.scenario, calm) : run.phase === 'briefing' ? briefing(run) : results(run)}
       ${note}</section>
