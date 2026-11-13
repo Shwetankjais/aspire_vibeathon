@@ -1,4 +1,4 @@
-import{r as A}from"./index-Cdsfu4nP.js";const w={"leave-for-meeting-place":`
+import{r as A}from"./index-7FB1iPJx.js";const w={"leave-for-meeting-place":`
     <svg viewBox="0 0 80 80" class="rapid-card-svg" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <rect width="80" height="80" rx="12" fill="#ECFDF5"/>
       <path d="M48 18H28C25.79 18 24 19.79 24 22V58C24 60.21 25.79 62 28 62H48" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
