@@ -4,7 +4,7 @@
 
 **Play the deployed game:** [Disaster Dash](https://shwetankjais.github.io/aspire_vibeathon/)
 
-This submission packages the deployed application from main commit `d2612556a72ac50c7a44da7ae6e17dd910e4250b`. Sundarpur and its scenarios are fictional. The game uses bundled content and local scoring.
+This submission packages the deployed application from main commit `96f14c98675e44c4511a31b5d40a522641c3ae61`. Sundarpur and its scenarios are fictional. The game uses bundled content and local scoring.
 
 ### Classic judge path · about 60 seconds
 
@@ -14,9 +14,18 @@ This submission packages the deployed application from main commit `d2612556a72a
 4. Choose **Turn around and head to higher ground**. Advance and choose **Leave by the clear exit and go to the outside meeting place**.
 5. Select **See results**. Expect **3 / 3**, three secured locations, and safety takeaways.
 
+### Guided Classic judge path · The Oracle’s Journey
+
+1. In the briefing, turn on **Calm Mode** and choose **Begin with Eldrin**. The school round opens with Eldrin’s journal and no countdown.
+2. Use the **Eldrin guide** switch to hide and restore the journal. Turn Calm Mode off to start the timer, then turn it back on. The same question remains and Eldrin returns.
+3. Choose **Drop, cover, and hold on under the desk**. Read the safety explanation and Eldrin’s response. For the missed-answer check, choose **Run for the stairs and head outside** instead. Switching Calm Mode off and back on during feedback restores Eldrin’s response and preserves the submitted answer.
+4. In the flood round, choose **Turn around and head to higher ground**. In the fire round, choose **Leave by the clear exit and go to the outside meeting place**.
+5. Select **See results**. Confirm Eldrin’s closing line and the safety takeaways. Expect **3 / 3** with all safe choices or **2 / 3** with the intentional miss.
+6. Select **Play again**, leave Calm Mode on, and choose **Start round** to verify plain Calm Mode. The question has no countdown and Eldrin’s journal is hidden. The guide switch remains available.
+
 ### Visual Challenges judge path · about 60 seconds
 
-1. From the classic result choose **Play again** to return to briefing, then select **Visual Challenges**. Calm Mode carries over between runs.
+1. From the classic result choose **Play again** to return to briefing, then select **Visual Challenges**. Calm Mode carries over between runs. Eldrin’s guide is available in Classic.
 2. A run draws one scene and one Rapid Pick from four fixtures. In the dining hall, select the **Sturdy table**. At the flood junction, select the **Dry uphill path**. The matching labeled action button submits the same answer.
 3. Read the explanation and safe-action demonstration. Select **Next round**.
 4. For the Rapid Pick home fire, choose **Leave by the clear exit for the outside meeting place**. For the flooded road, choose **Turn around safely before reaching the water**. Cards support click, touch, Enter, and the displayed 1/2/3 order.
@@ -31,13 +40,15 @@ This submission packages the deployed application from main commit `d2612556a72a
 
 ### Fresh screenshots from the live build
 
-- [Classic round in Calm Mode](screenshots/submission-classic-round.jpg)
-- [Classic 3 / 3 result](screenshots/submission-classic-result.jpg)
-- [Interactive visual scene](screenshots/submission-visual-scene.jpg)
-- [Rapid Pick](screenshots/submission-rapid-pick.jpg)
-- [Visual 2 / 2 result](screenshots/submission-visual-result.jpg)
+- [Briefing with Begin with Eldrin](screenshots/eldrin-briefing.jpg)
+- [Guided Classic question](screenshots/eldrin-classic-round.jpg)
+- [Guided Classic result and closing line](screenshots/eldrin-classic-result.jpg)
+- [Plain Calm Mode question](screenshots/eldrin-plain-calm.jpg)
+- [Interactive visual scene](screenshots/eldrin-visual-scene.jpg)
+- [Rapid Pick](screenshots/eldrin-rapid-pick.jpg)
+- [Visual Challenges 2 / 2 result](screenshots/eldrin-visual-result.jpg)
 
-Codex completed both paths on the deployed site while capturing these screenshots. The release passed the scenario validators, engine tests, production build, and browser checks for Calm Mode cancellation and timed feedback.
+The release passed the scenario and dialogue validators, engine tests, and production build. Live browser checks covered guided Classic, plain Calm Mode, and Visual Challenges. The ZIP’s production files match those served by GitHub Pages.
 
 ## DOC-03 · Five-test checklist
 
