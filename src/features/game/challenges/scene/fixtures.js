@@ -1,0 +1,38 @@
+export const sceneScenarios = [
+  {
+    id: 'dining-hall-quake',
+    format: 'scene',
+    sceneId: 'dining-hall',
+    hazard: 'earthquake',
+    location: 'Village dining hall',
+    title: 'The dining hall shakes',
+    prompt: 'The floor starts shaking. You are already beside a sturdy table. Where do you take cover?',
+    calmPrompt: 'The room is shaking. You are beside a sturdy table.',
+    choices: [
+      { id: 'table', label: 'Drop, cover, and hold on under the table.', explanation: 'Get low, protect your head and neck, and hold a table leg until the shaking stops.' },
+      { id: 'window', label: 'Move to the window.', explanation: 'Glass can break and fall while the room shakes.' },
+      { id: 'doorway', label: 'Stand in the doorway.', explanation: 'The doorway leaves your head and neck exposed to falling objects.' },
+    ],
+    correctChoiceId: 'table',
+    takeaway: 'During indoor shaking, drop, cover your head and neck, and hold on.',
+    sourceUrl: 'https://www.ready.gov/sites/default/files/2024-03/ready-gov_full-suite_hazard-info-sheets.pdf',
+  },
+  {
+    id: 'junction-flood',
+    format: 'scene',
+    sceneId: 'flood-junction',
+    hazard: 'flood',
+    location: 'Hillside junction',
+    title: 'Water cuts across the junction',
+    prompt: 'The low road is flooded, and the bridge approach is under fast-moving water. A dry path beside you climbs uphill. Which route do you take?',
+    calmPrompt: 'The road and bridge approach are flooded. The uphill path is dry.',
+    choices: [
+      { id: 'road', label: 'Walk along the flooded road.', explanation: 'Moving water can knock you down and conceal damage to the road.' },
+      { id: 'uphill', label: 'Take the dry path uphill.', explanation: 'The dry path leads to higher ground without crossing floodwater.' },
+      { id: 'bridge', label: 'Cross the flooded bridge approach.', explanation: 'You would have to enter fast-moving water to reach the bridge.' },
+    ],
+    correctChoiceId: 'uphill',
+    takeaway: 'When a route is flooded, stay out of the water and use a clear route to higher ground.',
+    sourceUrl: 'https://www.ready.gov/sites/default/files/2019.CERT_.HazardAnnexes.PM_.FINAL_.508c.pdf',
+  },
+];

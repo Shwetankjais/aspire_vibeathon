@@ -37,7 +37,9 @@ function briefing(run) {
     <h1 tabindex="-1">${run.original ? 'Practice missed rounds' : 'Welcome to Sundarpur.'}</h1>
     <p class="game-prompt">${run.original ? 'Take another look at the situations you missed. Your original score is saved for this session.' : 'The Disaster Devil is taking different forms across Sundarpur. As a village resident, choose the safest action in each emergency.'}</p>
     <ul class="hazard-list">${run.queue.map(scenario => `<li>${icon(scenario.hazard)} ${scenario.hazard}</li>`).join('')}</ul>
-    <div class="panel-actions">${action(`Start round ${icon('arrow')}`, 'start')}</div>`;
+    <div class="panel-actions">${action(`Start round ${icon('arrow')}`, 'start')}
+      ${run.original ? '' : action(`${icon('grid')} Visual Challenges`, 'visual', 'secondary')}</div>
+    ${run.original ? '' : '<p class="visual-description">Explore one interactive scene and one Rapid Pick round.</p>'}`;
 }
 
 function question(run, scenario, calm) {
@@ -50,19 +52,26 @@ function question(run, scenario, calm) {
     const message = outcome.correct
       ? `<p><strong>Your choice:</strong> ${safe.label}</p><p>${safe.explanation}</p>`
       : `${selected ? `<p><strong>Your choice:</strong> ${selected.label} ${selected.explanation}</p>` : ''}<p><strong>Safest action:</strong> ${safe.label}</p><p>${safe.explanation}</p>`;
-    feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${feedbackMarkup(title, message, outcome.correct ? 'success' : 'miss')}</section>
+    feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${feedbackMarkup(title, message, outcome.correct ? 'success' : 'miss')}
+      ${scenario.format ? `<p class="visual-description"><strong>Takeaway:</strong> ${scenario.takeaway}</p>` : ''}</section>
       <div class="panel-actions">${action(`${run.index + 1 === run.queue.length ? 'See results' : 'Next round'} ${icon('arrow')}`, 'advance')}</div>`;
   }
 
   const countdown = !outcome && !calm;
+  const waiting = Boolean(scenario.format && !outcome && !run.ready);
+  const pendingTimer = waiting ? 'data-challenge-timer hidden' : '';
+  const format = scenario.format === 'scene' ? 'Find the safe choice' : 'Rapid Pick';
   return `<div class="round-meta">
       <span class="hazard-label">${icon(scenario.hazard)} ${scenario.hazard}</span>
-      ${countdown ? `<span class="timer" aria-label="Round countdown">${icon('clock')} <span data-seconds aria-hidden="true">20s</span><span class="sr-only">20 seconds to choose</span></span>` : ''}
+      ${scenario.format ? `<span class="format-label">${format}</span>` : ''}
+      ${countdown ? `<span class="timer" ${pendingTimer} aria-label="Round countdown">${icon('clock')} <span data-seconds aria-hidden="true">20s</span><span class="sr-only">20 seconds to choose</span></span>` : ''}
     </div>
-    ${countdown ? '<div class="timer-track" aria-hidden="true"><div data-timer-bar></div></div>' : ''}
+    ${countdown ? `<div class="timer-track" ${pendingTimer} aria-hidden="true"><div data-timer-bar></div></div>` : ''}
     <h1 tabindex="-1">${scenario.title}</h1>
     <p class="game-prompt">${calm ? scenario.calmPrompt : scenario.prompt}</p>
-    <div class="choices" role="group" aria-label="Available actions">
+    ${scenario.format && !outcome ? '<button type="button" class="text-button challenge-jump" data-action="view-challenge">View illustrated choices ↓</button>' : ''}
+    ${waiting && !calm ? '<p class="visual-description" data-reveal-status role="status">Preparing choices…</p>' : ''}
+    <div class="choices" data-choice-list ${waiting && !calm ? 'inert' : ''} role="group" aria-label="Available actions">
       ${scenario.choices.map((choice, index) => choiceMarkup(choice, index, outcome ? choice.id === safe.id ? 'safe' : choice.id === selected?.id ? 'selected' : 'inactive' : '')).join('')}
     </div>${feedback}`;
 }
@@ -70,8 +79,9 @@ function question(run, scenario, calm) {
 function results(run) {
   const total = score(run.outcomes);
   const perfect = total === run.queue.length;
-  return `<p class="eyebrow"><span class="accent-dot"></span> ${run.original ? 'PRACTICE COMPLETE' : 'VILLAGE DEBRIEF'}</p>
-    <h1 tabindex="-1">${run.original ? 'Practice complete.' : perfect ? 'Sundarpur is safe.' : 'Mission complete.'}</h1>
+  const visual = run.kind === 'visual';
+  return `<p class="eyebrow"><span class="accent-dot"></span> ${run.original ? 'PRACTICE COMPLETE' : visual ? 'VISUAL CHALLENGES DEBRIEF' : 'VILLAGE DEBRIEF'}</p>
+    <h1 tabindex="-1">${run.original ? 'Practice complete.' : visual ? 'Visual Challenges complete.' : perfect ? 'Sundarpur is safe.' : 'Mission complete.'}</h1>
     <div class="result-score"><strong>${total}<span> / ${run.queue.length}</span></strong><span>Safe choices</span></div>
     ${run.original ? `<p class="original-score">Original run: ${score(run.original)} / ${run.original.length}</p>` : ''}
     <ul class="takeaways">${run.outcomes.map(({ scenario, correct }) => `<li>
@@ -81,22 +91,27 @@ function results(run) {
     </li>`).join('')}</ul>
     <div class="panel-actions">${!perfect ? action(`Practice missed rounds ${icon('arrow')}`, 'practice') : ''}
     ${action(perfect ? `Play again ${icon('arrow')}` : 'Play again', 'replay', perfect ? 'primary' : 'secondary')}
+    ${visual ? action('Choose game mode', 'briefing', 'secondary') : ''}
     <a href="#/" class="text-button">Back to home</a></div>`;
 }
 
 export function gameScreen(game) {
   const { run, calm } = game;
   const active = run.phase === 'question' || run.phase === 'feedback';
+  const visualBoard = active && (game.scenario.format === 'scene' || (game.scenario.format === 'rapid' && run.phase === 'question'));
   const restored = run.phase === 'results' && !run.original && score(run.outcomes) === run.queue.length;
   return `<main class="game wrap ${calm ? 'calm' : ''}" id="main">
     <div class="game-top">
       <a class="text-button back-home" href="#/">${icon('back')} Home</a>
-      ${active ? `<span class="round-progress">${run.original ? 'Practice · ' : ''}Round ${run.index + 1} of ${run.queue.length}<span aria-hidden="true">${run.queue.map((_, index) => `<i class="${index <= run.index ? 'active' : ''}"></i>`).join('')}</span></span>` : ''}
+      ${active ? `<span class="round-progress">${run.original ? 'Practice · ' : run.kind === 'visual' ? 'Visual · ' : ''}Round ${run.index + 1} of ${run.queue.length}<span aria-hidden="true">${run.queue.map((_, index) => `<i class="${index <= run.index ? 'active' : ''}"></i>`).join('')}</span></span>` : ''}
       ${run.phase !== 'results' ? calmControl(calm) : ''}
     </div>
     ${calm && run.phase !== 'results' ? '<p class="calm-status" role="status">Calm Mode on · Take your time</p>' : ''}
-    <div class="game-grid ${active ? 'active-round' : ''}">
-      ${scene(active ? game.scenario : null, calm, restored)}
+    <div class="game-grid ${active ? 'active-round' : ''} ${visualBoard ? 'visual-round' : ''}">
+      ${visualBoard ? `<aside class="challenge-board" tabindex="-1" aria-label="Visual challenge">
+        <header class="challenge-heading">${icon(game.scenario.hazard)} <strong>${game.scenario.location}</strong><span>${game.scenario.hazard}</span></header>
+        <div data-challenge></div>
+      </aside>` : scene(active ? game.scenario : null, calm, restored)}
       <section class="game-panel ${active ? game.scenario.hazard : ''}">${active ? question(run, game.scenario, calm) : run.phase === 'briefing' ? briefing(run) : results(run)}
       ${note}</section>
     </div>

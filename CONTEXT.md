@@ -5,3 +5,7 @@ Disaster Dash is VibeSprint Problem Card 08. The app uses Vite, native JavaScrip
 Codex integrated Antigravity's scenario module and validator from the Desktop working copy. The production module exports the agreed three scenarios. The integrated branch includes a verified local run, a judge runbook, and two screenshots. See [the README](README.md) for launch steps and [QA](docs/qa.md) for checked behavior. Independent QA of the integrated app and the assigned documentation card remain pending.
 
 Antigravity's branch and GitHub `main` reached `ec3bbbf1ac04fa53e469bd94d57a3542339a8f5a` during final verification. That commit contains a parallel app. The integration branch preserves both histories, uses the verified Codex implementation, and incorporates the peer fixture, validation, and engine test coverage.
+
+## Visual Challenges review
+
+The expansion lives on `codex/visual-challenges`, forked from `27754ea9893710c1646f73cacd2c6640bd2ea89b`. It integrates Antigravity's `7775af04d6801d48bf2ebe5ec301ad838355e0aa` and shares the original game's timer, score, and results engine. [Integration checks](docs/progress-codex.md#visual-challenges)

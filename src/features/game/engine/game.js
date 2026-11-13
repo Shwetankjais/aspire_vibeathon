@@ -1,11 +1,13 @@
 export const ROUND_MS = 20_000;
 
-export function createGame(scenarios, render, updateTime) {
+export function createGame(scenarios, render, updateTime, drawVisual) {
   let calm = false;
   let run;
   let interval;
+  let clockToken;
 
   function cancelClock() {
+    clockToken = undefined;
     clearInterval(interval);
     interval = undefined;
     if (run) run.deadline = null;
@@ -27,29 +29,32 @@ export function createGame(scenarios, render, updateTime) {
     render('feedback');
   }
 
-  function tick(deadline) {
-    if (run?.deadline !== deadline) return;
+  function tick(token, deadline) {
+    if (clockToken !== token) return;
     const remaining = deadline - performance.now();
     if (remaining <= 0) resolve(null);
     else updateTime(remaining);
   }
 
   function startClock() {
-    if (calm || run.phase !== 'question') return;
+    if (calm || run.phase !== 'question' || !run.ready || clockToken) return;
+    const token = Symbol();
+    clockToken = token;
     const deadline = performance.now() + ROUND_MS;
     run.deadline = deadline;
     updateTime(ROUND_MS);
-    interval = setInterval(() => tick(deadline), 100);
+    interval = setInterval(() => tick(token, deadline), 100);
   }
 
-  function brief(queue = scenarios, original = null) {
+  function brief(queue = scenarios, original = null, kind = 'classic') {
     cancelClock();
-    run = { phase: 'briefing', queue, index: 0, outcomes: [], original, deadline: null };
+    run = { phase: 'briefing', queue, index: 0, outcomes: [], original, kind, ready: false, deadline: null };
     render('briefing');
   }
 
   function showQuestion() {
     run.phase = 'question';
+    run.ready = !currentScenario().format;
     render('question');
     startClock();
   }
@@ -59,6 +64,24 @@ export function createGame(scenarios, render, updateTime) {
     get calm() { return calm; },
     get scenario() { return currentScenario(); },
     brief,
+    startVisual() {
+      if (run.phase !== 'briefing' || run.original) return;
+      brief(drawVisual(), null, 'visual');
+      showQuestion();
+    },
+    replay() {
+      if (run.kind === 'visual') {
+        brief(drawVisual(), null, 'visual');
+        showQuestion();
+      } else {
+        brief();
+      }
+    },
+    ready() {
+      if (run?.phase !== 'question' || run.ready) return;
+      run.ready = true;
+      startClock();
+    },
     leave() {
       cancelClock();
       run = undefined;
@@ -67,7 +90,7 @@ export function createGame(scenarios, render, updateTime) {
       if (run.phase === 'briefing') showQuestion();
     },
     answer(choiceId) {
-      if (run.phase !== 'question') return;
+      if (run?.phase !== 'question' || !run.ready) return;
       if (!currentScenario().choices.some(choice => choice.id === choiceId)) return;
       const expired = run.deadline !== null && performance.now() >= run.deadline;
       resolve(expired ? null : choiceId);
@@ -75,6 +98,7 @@ export function createGame(scenarios, render, updateTime) {
     toggleCalm() {
       calm = !calm;
       cancelClock();
+      if (run.phase === 'question') run.ready = !currentScenario().format;
       render('mode');
       startClock();
     },
@@ -91,7 +115,7 @@ export function createGame(scenarios, render, updateTime) {
     practice() {
       if (run.phase !== 'results') return;
       const missed = run.outcomes.filter(outcome => !outcome.correct);
-      if (missed.length) brief(missed.map(outcome => outcome.scenario), run.original ?? run.outcomes);
+      if (missed.length) brief(missed.map(outcome => outcome.scenario), run.original ?? run.outcomes, run.kind);
     },
   };
 }

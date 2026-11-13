@@ -1,0 +1,83 @@
+.spatial-view {
+  position: relative;
+  isolation: isolate;
+  height: clamp(275px, 34vw, 445px);
+  overflow: hidden;
+  perspective: 850px;
+  background: radial-gradient(ellipse at 52% 36%, #716092, #2c234b 85%);
+}
+.scene-world { position: absolute; width: 340px; height: 300px; left: 50%; top: 50%; transform: translate(-50%, -50%); transform-style: preserve-3d; }
+.scene-world > div { position: absolute; transform-style: preserve-3d; }
+.dining-floor { width: 290px; height: 240px; left: 24px; top: 45px; background: repeating-linear-gradient(90deg,#d6a675 0 24px,#bf8b61 25px 27px); border: 4px solid #513852; transform: rotateX(54deg) rotateZ(-24deg); box-shadow: 0 16px 0 #513852, 0 22px 30px #180e2c80; }
+.dining-wall { background: #dfb59c; border: 4px solid #513852; box-shadow: inset 0 0 0 2px #f3ceb0; }
+.dining-wall.rear { left: 44px; top: 31px; width: 233px; height: 112px; transform: rotateY(-24deg) skewY(-10deg) translateZ(-15px); }
+.dining-wall.side { left: 1px; top: 61px; width: 82px; height: 110px; background: #ad8290; transform: rotateY(39deg) skewY(23deg) translateZ(-30px); }
+.wall-trim { position: absolute; bottom: 0; inset-inline: 0; height: 13px; background: #77526b; border-top: 3px solid #513852; }
+.room-window { position: absolute; left: 22px; top: 18px; width: 60px; height: 53px; border: 5px solid #533a59; background: linear-gradient(#73b8d2 54%,#e9c287 55%); box-shadow: 0 5px 0 #78546b; }
+.room-window::before, .room-window::after { content: ''; position: absolute; background: #533a59; }
+.room-window::before { left: 50%; width: 3px; height: 100%; }
+.room-window::after { top: 50%; height: 3px; width: 100%; }
+.room-door { position: absolute; right: 20px; bottom: 9px; width: 48px; height: 78px; border: 5px solid #6d465c; background: #48354e; border-bottom: 0; }
+.room-door::after { content: ''; display: block; width: 24px; height: 100%; background: #ad765f; transform: skewY(12deg); transform-origin: left; }
+.dining-rug { left: 96px; top: 146px; width: 150px; height: 90px; background: #bf6376; border: 8px double #f2b47f; transform: rotateX(54deg) rotateZ(-24deg); }
+.dining-table { left: 113px; top: 123px; width: 119px; height: 92px; }
+.dining-table i { position: absolute; display: block; border: 2px solid #593348; }
+.table-top { width: 123px; height: 65px; background: repeating-linear-gradient(0deg,#e5a062 0 11px,#ce8255 12px 13px); transform: rotateX(56deg) rotateZ(-24deg) translateZ(5px); }
+.table-front { left: 10px; top: 47px; width: 112px; height: 14px; background: #a45646; transform: skewY(-10deg); }
+.table-side { left: -2px; top: 35px; width: 18px; height: 17px; background: #bd6b4c; transform: skewY(35deg); }
+.leg { width: 9px; height: 41px; background: #9f5847; }
+.rear-left { left: 5px; top: 37px; z-index: -1; }
+.rear-right { left: 108px; top: 36px; z-index: -1; }
+.front-left { left: 11px; top: 53px; }
+.front-right { left: 112px; top: 43px; }
+.character { left: 225px; top: 155px; width: 42px; height: 80px; z-index: 1; }
+.character i { position: absolute; display: block; border: 2px solid #402d52; }
+.character .head { left: 10px; width: 23px; height: 23px; border-radius: 48%; background: #cc8a65; box-shadow: inset 0 5px #4b2a42; }
+.character .body { top: 20px; left: 9px; width: 25px; height: 35px; border-radius: 10px; background: #f7c64c; }
+.character .legs { top: 50px; left: 10px; width: 24px; height: 25px; background: linear-gradient(90deg,#464570 40%,transparent 42% 57%,#464570 60%); border-bottom: 5px solid #3d2b45; border-inline: 0; border-top: 0; }
+.character .arm { top: 24px; width: 8px; height: 22px; border-radius: 8px; background: #ce8d69; }
+.character .cover { left: 6px; transform: rotate(14deg); }
+.character .grip { left: 29px; transform: rotate(-13deg); }
+.demonstration .character { left: 176px; top: 172px; transform: rotate(-70deg) scale(.71); animation: take-cover .65s ease-out both; }
+.demonstration .character .cover { top: 4px; left: 9px; transform: rotate(-37deg); }
+.demonstration .character .grip { left: 39px; top: 26px; transform: rotate(64deg); }
+.dining-hall:not(.stable, .demonstration) .scene-world { animation: room-tremor .55s ease-in-out; }
+@keyframes take-cover { from { transform: translate(48px,-17px); } }
+@keyframes room-tremor { 25%, 75% { transform: translate(calc(-50% - 4px),-50%) rotate(-1deg); } 50% { transform: translate(calc(-50% + 4px),-50%) rotate(1deg); } }
+.flood-junction { background: radial-gradient(ellipse at 50% 40%,#478a91,#19374b 87%); }
+.junction-base { left: 20px; top: 61px; width: 300px; height: 190px; border-radius: 23%; background: #729b65; border: 5px solid #3d625f; transform: rotateX(50deg) rotateZ(-23deg); box-shadow: 0 18px 0 #294e55, 0 25px 26px #152d43a8; }
+.junction-river { left: 108px; top: 128px; width: 209px; height: 82px; transform: rotateX(46deg) rotateZ(19deg); background: repeating-linear-gradient(0deg,#36a7bb 0 12px,#75d0d4 13px 15px,#348da7 17px 25px); border-radius: 29%; border: 3px solid #30768f; }
+.junction-road { left: 68px; top: 124px; width: 123px; height: 40px; transform: skewY(20deg); background: linear-gradient(90deg,#aaa299 49%,#56b5bd 51% 78%,#4aa2b3 79%); border-block: 3px solid #6f8e79; }
+.junction-hill { left: 91px; top: 55px; width: 152px; height: 75px; border-radius: 48% 48% 20% 30%; background: #92b979; transform: rotateY(-20deg) skewY(-9deg); box-shadow: 0 10px #5f8d67,0 16px #527c61; }
+.junction-path { left: 123px; top: 71px; width: 24px; height: 118px; border-radius: 75% 20% 80% 25%; transform: rotateZ(28deg) rotateX(25deg); background: #edcb8e; box-shadow: 3px 0 #a98965; }
+.junction-bridge { left: 229px; top: 132px; width: 42px; height: 89px; transform: rotateZ(17deg) skewY(-19deg); border-inline: 5px solid #573f56; background: repeating-linear-gradient(#cc9c67 0 6px,#8f655b 7px 9px); box-shadow: 4px 5px #523a55; }
+.trees { inset: 0; pointer-events: none; }
+.trees i { position: absolute; width: 22px; height: 26px; border-radius: 48% 48% 40% 38%; background: #2e6d60; box-shadow: 3px 4px #275259, 0 10px 0 -6px #55435b; }
+.trees i:nth-child(1) { top: 58px; left: 91px; }
+.trees i:nth-child(2) { top: 48px; left: 181px; }
+.trees i:nth-child(3) { top: 65px; left: 217px; }
+.trees i:nth-child(4) { top: 210px; left: 71px; }
+.trees i:nth-child(5) { top: 206px; left: 276px; }
+.route-walker { left: 109px; top: 147px; width: 15px; height: 20px; border-radius: 9px; background: #ffd164; border: 2px solid #583c5d; box-shadow: 0 6px #443857; }
+.route-walker::before { content: ''; position: absolute; left: 0; top: -8px; width: 11px; height: 11px; border-radius: 50%; background: #ca896a; border: 2px solid #4f3758; }
+.demonstration .route-walker { transform: translate(43px,-63px); animation: go-uphill .7s ease-out both; }
+@keyframes go-uphill { from { transform: none; } }
+.stable .character, .stable .route-walker { animation: none; }
+.scene-target { position: absolute; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #352b4e; border-radius: 100px; min-height: 44px; padding: 5px 10px 5px 5px; background: #fff8e8; color: #302344; box-shadow: 2px 3px 0 #342849; font-weight: 850; font-size: .8rem; white-space: nowrap; }
+.scene-target:hover { background: #ffdb73; }
+.scene-target:focus-visible { outline-color: #ffe393; }
+.scene-target span { display: grid; place-items: center; width: 26px; aspect-ratio: 1; border-radius: 50%; background: #e5dcf2; }
+.dining-hall .target-0 { left: 50%; top: calc(50% + 55px); transform: translateX(-50%); }
+.dining-hall .target-0::before { content: ''; position: absolute; inset: -58px 0 0; }
+.dining-hall .target-1 { left: 12%; top: 23%; }
+.dining-hall .target-2 { right: 10%; top: 30%; }
+.flood-junction .target-0 { left: 4%; top: 50%; }
+.flood-junction .target-1 { left: 49%; top: 22%; transform: translateX(-50%); }
+.flood-junction .target-2 { right: 4%; top: 64%; }
+@media (max-width: 400px) { .scene-world { transform: translate(-50%, -50%) scale(.84); } }
+
+/* Flatten the room's layers so the projected floor cannot occlude furniture. */
+.scene-world { perspective: 700px; transform-style: flat; }
+.dining-table { z-index: 2; transform-style: flat; }
+.character { z-index: 3; }
+.demonstration .character { z-index: 1; }

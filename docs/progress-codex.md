@@ -25,3 +25,12 @@ Append the task, branch, commit SHA, verified behavior, blockers, and Antigravit
 
 - Antigravity published `ec3bbbf1ac04fa53e469bd94d57a3542339a8f5a`, which also became the head of `main`. That commit includes a parallel application, scenario content, documentation, and evidence.
 - Reconciled the histories on `codex/disaster-dash-app` with the verified Codex application as the integrated implementation. Preserved the peer progress record, its scenario contribution, and the engine test coverage adapted to this implementation. Peer screenshots and browser verification cover the separate Antigravity app.
+
+## Visual Challenges
+
+- Baseline: `27754ea9893710c1646f73cacd2c6640bd2ea89b` on `main`. The published classic judge path passed before expansion.
+- Scene and integration checkpoint: `76fbac8c38beef345de113e47fe59c1100465a53`. Integrated Antigravity's Rapid Pick branch at `7775af04d6801d48bf2ebe5ec301ad838355e0aa` and retired the temporary renderer.
+- For the integrated judge path, run `npm ci`, `npm test`, `npm run build`, and `npm run preview`. Choose **Play Disaster Dash**, then **Visual Challenges**. Play one scene and one Rapid Pick, check both answers and the two-round debrief, then replay to confirm a different pair. Miss a round to check that practice keeps its exact scenario.
+- Tested the original tour and 3 / 3 classic run, scene targets, keyboard selection, the 360 px layout, the 2 / 2 visual result, missed-round practice, and a missing Rapid Pick bundle falling back to text. Also switched to Calm Mode as Rapid Pick entered and verified that no countdown remained. The engine tests cover all four pairings, readiness, stale timeouts, duplicate scoring, and exact missed IDs.
+- Screenshots: [Scene](screenshots/visual-scene.jpg), [Rapid Pick](screenshots/visual-rapid-pick.jpg), and [Debrief](screenshots/visual-debrief.jpg).
+- Independent integrated QA is pending. The published baseline is still the classic release.
