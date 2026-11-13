@@ -1,4 +1,6 @@
 import { icon } from '../../../app/icons.js';
+import { oracleJourney } from '../content/oracle-dialogue.js';
+import { guideControl, journalEntry } from '../oracle/journal.js';
 import { score } from '../engine/game.js';
 
 const note = `<p class="simulation-note">${icon('info')} Educational simulation, not live emergency advice.</p>`;
@@ -32,17 +34,20 @@ function scene(scenario, calm, restored) {
   </aside>`;
 }
 
-function briefing(run) {
+function briefing(run, calm) {
+  const offerGuide = calm && run.kind === 'classic' && !run.original && oracleJourney.welcome;
   return `<p class="eyebrow"><span class="accent-dot"></span> ${run.original ? 'PRACTICE BRIEFING' : 'MISSION BRIEFING'}</p>
     <h1 tabindex="-1">${run.original ? 'Practice missed rounds' : 'Welcome to Sundarpur.'}</h1>
     <p class="game-prompt">${run.original ? 'Take another look at the situations you missed. Your original score is saved for this session.' : 'The Disaster Devil is taking different forms across Sundarpur. As a village resident, choose the safest action in each emergency.'}</p>
+    ${offerGuide ? journalEntry(oracleJourney.welcome, 'The Oracle’s Journey · Eldrin') : ''}
     <ul class="hazard-list">${run.queue.map(scenario => `<li>${icon(scenario.hazard)} ${scenario.hazard}</li>`).join('')}</ul>
     <div class="panel-actions">${action(`Start round ${icon('arrow')}`, 'start')}
+      ${offerGuide ? action('Begin with Eldrin', 'start-guide', 'secondary') : ''}
       ${run.original ? '' : action(`${icon('grid')} Visual Challenges`, 'visual', 'secondary')}</div>
     ${run.original ? '' : '<p class="visual-description">Explore one interactive scene and one Rapid Pick round.</p>'}`;
 }
 
-function question(run, scenario, calm) {
+function question(run, scenario, calm, dialogue) {
   const outcome = run.phase === 'feedback' ? run.outcomes.at(-1) : null;
   const safe = scenario.choices.find(choice => choice.id === scenario.correctChoiceId);
   const selected = scenario.choices.find(choice => choice.id === outcome?.choiceId);
@@ -53,7 +58,8 @@ function question(run, scenario, calm) {
       ? `<p><strong>Your choice:</strong> ${safe.label}</p><p>${safe.explanation}</p>`
       : `${selected ? `<p><strong>Your choice:</strong> ${selected.label} ${selected.explanation}</p>` : ''}<p><strong>Safest action:</strong> ${safe.label}</p><p>${safe.explanation}</p>`;
     feedback = `<section tabindex="-1" data-feedback aria-label="Round feedback">${feedbackMarkup(title, message, outcome.correct ? 'success' : 'miss')}
-      ${scenario.format ? `<p class="visual-description"><strong>Takeaway:</strong> ${scenario.takeaway}</p>` : ''}</section>
+      ${scenario.format || dialogue ? `<p class="visual-description"><strong>Takeaway:</strong> ${scenario.takeaway}</p>` : ''}
+      ${journalEntry(outcome.correct ? dialogue?.correct : dialogue?.incorrect)}</section>
       <div class="panel-actions">${action(`${run.index + 1 === run.queue.length ? 'See results' : 'Next round'} ${icon('arrow')}`, 'advance')}</div>`;
   }
 
@@ -69,6 +75,7 @@ function question(run, scenario, calm) {
     ${countdown ? `<div class="timer-track" ${pendingTimer} aria-hidden="true"><div data-timer-bar></div></div>` : ''}
     <h1 tabindex="-1">${scenario.title}</h1>
     <p class="game-prompt">${calm ? scenario.calmPrompt : scenario.prompt}</p>
+    ${outcome ? '' : journalEntry(dialogue?.intro)}
     ${scenario.format && !outcome ? '<button type="button" class="text-button challenge-jump" data-action="view-challenge">View illustrated choices ↓</button>' : ''}
     ${waiting && !calm ? '<p class="visual-description" data-reveal-status role="status">Preparing choices…</p>' : ''}
     <div class="choices" data-choice-list ${waiting && !calm ? 'inert' : ''} role="group" aria-label="Available actions">
@@ -76,7 +83,7 @@ function question(run, scenario, calm) {
     </div>${feedback}`;
 }
 
-function results(run) {
+function results(run, closing) {
   const total = score(run.outcomes);
   const perfect = total === run.queue.length;
   const visual = run.kind === 'visual';
@@ -89,6 +96,7 @@ function results(run) {
       <div><strong>${scenario.location}</strong><span class="location-status"> · ${correct ? 'Secured' : 'Needs practice'}</span>
       <p>${scenario.takeaway}</p><a href="${scenario.sourceUrl}" target="_blank" rel="noreferrer">Safety source ↗</a></div>
     </li>`).join('')}</ul>
+    ${journalEntry(closing)}
     <div class="panel-actions">${!perfect ? action(`Practice missed rounds ${icon('arrow')}`, 'practice') : ''}
     ${action(perfect ? `Play again ${icon('arrow')}` : 'Play again', 'replay', perfect ? 'primary' : 'secondary')}
     ${visual ? action('Choose game mode', 'briefing', 'secondary') : ''}
@@ -98,13 +106,21 @@ function results(run) {
 export function gameScreen(game) {
   const { run, calm } = game;
   const active = run.phase === 'question' || run.phase === 'feedback';
+  const classicCalm = calm && run.kind === 'classic';
+  const guideAvailable = classicCalm && (active
+    ? Boolean(oracleJourney.byScenarioId[game.scenario.id])
+    : run.phase === 'results' && Boolean(oracleJourney.closing));
+  const dialogue = active && guideAvailable && run.guide ? oracleJourney.byScenarioId[game.scenario.id] : undefined;
   const visualBoard = active && (game.scenario.format === 'scene' || (game.scenario.format === 'rapid' && run.phase === 'question'));
   const restored = run.phase === 'results' && !run.original && score(run.outcomes) === run.queue.length;
   return `<main class="game wrap ${calm ? 'calm' : ''}" id="main">
     <div class="game-top">
       <a class="text-button back-home" href="#/">${icon('back')} Home</a>
       ${active ? `<span class="round-progress">${run.original ? 'Practice · ' : run.kind === 'visual' ? 'Visual · ' : ''}Round ${run.index + 1} of ${run.queue.length}<span aria-hidden="true">${run.queue.map((_, index) => `<i class="${index <= run.index ? 'active' : ''}"></i>`).join('')}</span></span>` : ''}
-      ${run.phase !== 'results' ? calmControl(calm) : ''}
+      <div class="game-mode-controls">
+        ${run.phase !== 'results' ? calmControl(calm) : ''}
+        ${guideAvailable ? guideControl(run.guide) : ''}
+      </div>
     </div>
     ${calm && run.phase !== 'results' ? '<p class="calm-status" role="status">Calm Mode on · Take your time</p>' : ''}
     <div class="game-grid ${active ? 'active-round' : ''} ${visualBoard ? 'visual-round' : ''}">
@@ -112,7 +128,7 @@ export function gameScreen(game) {
         <header class="challenge-heading">${icon(game.scenario.hazard)} <strong>${game.scenario.location}</strong><span>${game.scenario.hazard}</span></header>
         <div data-challenge></div>
       </aside>` : scene(active ? game.scenario : null, calm, restored)}
-      <section class="game-panel ${active ? game.scenario.hazard : ''}">${active ? question(run, game.scenario, calm) : run.phase === 'briefing' ? briefing(run) : results(run)}
+      <section class="game-panel ${active ? game.scenario.hazard : ''}">${active ? question(run, game.scenario, calm, dialogue) : run.phase === 'briefing' ? briefing(run, calm) : results(run, guideAvailable && run.guide ? oracleJourney.closing : undefined)}
       ${note}</section>
     </div>
   </main>`;

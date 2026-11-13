@@ -46,9 +46,9 @@ export function createGame(scenarios, render, updateTime, drawVisual) {
     interval = setInterval(() => tick(token, deadline), 100);
   }
 
-  function brief(queue = scenarios, original = null, kind = 'classic') {
+  function brief(queue = scenarios, original = null, kind = 'classic', guide = false) {
     cancelClock();
-    run = { phase: 'briefing', queue, index: 0, outcomes: [], original, kind, ready: false, deadline: null };
+    run = { phase: 'briefing', queue, index: 0, outcomes: [], original, kind, guide, ready: false, deadline: null };
     render('briefing');
   }
 
@@ -86,8 +86,15 @@ export function createGame(scenarios, render, updateTime, drawVisual) {
       cancelClock();
       run = undefined;
     },
-    start() {
-      if (run.phase === 'briefing') showQuestion();
+    start(withGuide = false) {
+      if (run.phase !== 'briefing') return;
+      if (!run.original) run.guide = withGuide && calm && run.kind === 'classic';
+      showQuestion();
+    },
+    toggleGuide() {
+      if (!calm || run?.kind !== 'classic' || run.phase === 'briefing') return;
+      run.guide = !run.guide;
+      render('guide');
     },
     answer(choiceId) {
       if (run?.phase !== 'question' || !run.ready) return;
@@ -115,7 +122,7 @@ export function createGame(scenarios, render, updateTime, drawVisual) {
     practice() {
       if (run.phase !== 'results') return;
       const missed = run.outcomes.filter(outcome => !outcome.correct);
-      if (missed.length) brief(missed.map(outcome => outcome.scenario), run.original ?? run.outcomes, run.kind);
+      if (missed.length) brief(missed.map(outcome => outcome.scenario), run.original ?? run.outcomes, run.kind, run.guide);
     },
   };
 }

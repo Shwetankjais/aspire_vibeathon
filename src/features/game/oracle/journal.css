@@ -1,0 +1,16 @@
+.oracle-journal {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 11px 14px;
+  border: 1px solid #b9a681;
+  border-inline-start: 3px solid #907447;
+  border-radius: 10px;
+  background: #f6eddb;
+  color: #372d22;
+}
+.oracle-journal img { flex: none; border-radius: 7px; }
+.oracle-journal strong { font-size: .78rem; }
+.oracle-journal p { margin: 3px 0 0; font-size: .9rem; line-height: 1.45; }
+.game-mode-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }

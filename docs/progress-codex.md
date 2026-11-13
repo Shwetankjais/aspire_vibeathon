@@ -34,3 +34,10 @@ Append the task, branch, commit SHA, verified behavior, blockers, and Antigravit
 - Tested the original tour and 3 / 3 classic run, scene targets, keyboard selection, the 360 px layout, the 2 / 2 visual result, missed-round practice, and a missing Rapid Pick bundle falling back to text. Also switched to Calm Mode as Rapid Pick entered and verified that no countdown remained. The engine tests cover all four pairings, readiness, stale timeouts, duplicate scoring, and exact missed IDs.
 - Screenshots: [Scene](screenshots/visual-scene.jpg), [Rapid Pick](screenshots/visual-rapid-pick.jpg), and [Debrief](screenshots/visual-debrief.jpg).
 - Independent integrated QA is pending. The published baseline is still the classic release.
+
+## The Oracle’s Journey
+
+- Base on `codex/oracle-journey` is `7f52f7d`. Classic Calm Mode now offers **Begin with Eldrin**, with a separate guide switch during play and on the debrief.
+- Codex supplied the local fictional dialogue in `src/features/game/content/oracle-dialogue.js` because an Antigravity Oracle branch was unavailable. The stable IDs and sidecar contract are in ARCHITECTURE.md.
+- `npm test` and `npm run build` passed. Browser verification at the Pages subpath covered plain Calm Mode, a guided 2 / 3 run with a missed answer, timing and guide switches during questions and feedback, keyboard, replay, 360 px layout, and a 2 / 2 Visual Challenges run.
+- Independent review can run `npm ci`, `npm test`, `npm run build`, and `npm run preview`, then enable Calm Mode in briefing and choose **Begin with Eldrin**. Check all chapters and Visual Challenges.
